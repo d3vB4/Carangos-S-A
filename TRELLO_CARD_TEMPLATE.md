@@ -16,7 +16,7 @@
 
 ### Passo a Passo:
 1. **Copie** o conteúdo de cada card abaixo
-2. **Cole** no Trello ao criar um novo card
+2. **Cole** no Trello ao criar um novo cards
 3. **Personalize** as datas e responsáveis
 4. **Marque** os checkboxes conforme o progresso
 5. **Anexe** os arquivos correspondentes
