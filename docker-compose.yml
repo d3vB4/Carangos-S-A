@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    environment:
+      - SECRET_KEY=dev-secret-key-change-in-production
+      - FLASK_ENV=development
+      - PORT=5000
+    volumes:
+      # Mount data directory for persistence during development
+      - ./data:/app/data
+      # Mount code for hot reload during development
+      - .:/app
+    command: python app.py
+    restart: unless-stopped
+  # Optional: Add PostgreSQL for future migration
+  # db:
+  #   image: postgres:15-alpine
+  #   environment:
+  #     - POSTGRES_USER=carangos
+  #     - POSTGRES_PASSWORD=carangos123
+  #     - POSTGRES_DB=carangos_db
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data
+  #   ports:
+  #     - "5432:5432"
+
+  # volumes:
+  #   postgres_data:

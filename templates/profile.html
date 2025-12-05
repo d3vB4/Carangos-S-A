@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}Meu Perfil - Carangos S/A{% endblock %}
+
+{% block content %}
+<div class="card" style="max-width: 700px; margin: 0 auto;">
+    <h2 style="margin-bottom: 2rem; display: flex; align-items: center; gap: 0.75rem;">
+        <i class="fas fa-user-circle" style="color: var(--primary-color);"></i> Meu Perfil
+    </h2>
+
+    <div
+        style="display: flex; align-items: center; margin-bottom: 2.5rem; padding: 1.5rem; background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%); border-radius: 12px; border: 1px solid rgba(59, 130, 246, 0.2);">
+        <div
+            style="width: 90px; height: 90px; background: linear-gradient(135deg, var(--primary-color) 0%, #8B5CF6 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; font-weight: bold; margin-right: 1.5rem; color: white; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);">
+            {{ user[0].upper() }}
+        </div>
+        <div style="flex: 1;">
+            <h3 style="margin-bottom: 0.5rem; font-size: 1.5rem;">{{ user }}</h3>
+            <span class="badge badge-primary" style="font-size: 0.85rem; padding: 0.4rem 1rem;">
+                <i class="fas fa-briefcase" style="margin-right: 0.35rem;"></i>{{ role.upper() }}
+            </span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label><i class="fas fa-user"></i> Nome de Usuário</label>
+        <input type="text" value="{{ user }}" class="form-control" disabled style="cursor: not-allowed; opacity: 0.7;">
+    </div>
+
+    <div class="form-group">
+        <label><i class="fas fa-shield-alt"></i> Permissões</label>
+        <input type="text" value="Acesso {{ 'Total' if role == 'admin' else 'Padrão' }}" class="form-control" disabled
+            style="cursor: not-allowed; opacity: 0.7;">
+    </div>
+
+    <div style="margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+        <a href="{{ url_for('logout') }}" class="btn btn-danger" style="width: 100%;">
+            <i class="fas fa-sign-out-alt"></i> Sair da Conta
+        </a>
+    </div>
+
+    <div style="margin-top: 1.5rem; text-align: center;">
+        <a href="{{ url_for('dashboard') }}"
+            style="color: var(--primary-color); text-decoration: none; font-weight: 600;">
+            <i class="fas fa-arrow-left"></i> Voltar ao Dashboard
+        </a>
+    </div>
+</div>
+{% endblock %}

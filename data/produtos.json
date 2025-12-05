@@ -1,0 +1,10 @@
+[
+    {
+        "codigo": 1,
+        "nome": "teste",
+        "data_fabricacao": "01/01/2025",
+        "fornecedor": "teste",
+        "quantidade": 3,
+        "valor_compra": 3.0
+    }
+]

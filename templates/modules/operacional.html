@@ -1,0 +1,168 @@
+{% extends "base.html" %}
+
+{% block title %}Módulo Operacional - Carangos S/A{% endblock %}
+
+{% block content %}
+<div style="margin-bottom: 2.5rem;">
+    <h1 style="font-size: 2rem; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.75rem;">
+        <i class="fas fa-industry" style="color: var(--primary-color);"></i> Módulo Operacional
+    </h1>
+    <p style="color: var(--text-secondary); font-size: 1.05rem;">Gerencie a produção diária, turnos e relatórios de
+        capacidade.</p>
+</div>
+
+<div class="dashboard-grid-split" style="margin-top: 1rem;">
+    <!-- Form -->
+    <div class="card">
+        <h3>Registrar Produção</h3>
+        <form method="POST">
+            <div class="form-group">
+                <label>Dia da Semana</label>
+                <select name="dia" class="form-control">
+                    <option value="Segunda">Segunda</option>
+                    <option value="Terça">Terça</option>
+                    <option value="Quarta">Quarta</option>
+                    <option value="Quinta">Quinta</option>
+                    <option value="Sexta">Sexta</option>
+                    <option value="Sábado">Sábado</option>
+                    <option value="Domingo">Domingo</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Turno</label>
+                <select name="turno" class="form-control">
+                    <option value="Manhã">Manhã</option>
+                    <option value="Tarde">Tarde</option>
+                    <option value="Noite">Noite</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Quantidade</label>
+                <input type="number" name="quantidade" class="form-control" required min="0">
+            </div>
+            <button type="submit" class="btn btn-primary">Registrar</button>
+        </form>
+    </div>
+
+    <!-- Report -->
+    <div class="card">
+        <h3 style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem;">
+            <i class="fas fa-chart-bar" style="color: var(--primary-color);"></i> Relatório de Produção
+        </h3>
+        <div class="kpi-grid" style="grid-template-columns: repeat(3, 1fr); margin-bottom: 1.5rem;">
+            <div class="kpi-card">
+                <i class="fas fa-boxes"
+                    style="font-size: 1.75rem; color: var(--primary-color); margin-bottom: 0.5rem;"></i>
+                <div class="label">Total Semanal</div>
+                <div class="value" style="color: var(--primary-color);">{{ total_semanal }}</div>
+            </div>
+            <div class="kpi-card"
+                style="background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(139, 92, 246, 0.05) 100%); border-color: rgba(139, 92, 246, 0.2); border-left-color: #8B5CF6;">
+                <i class="fas fa-calendar-day" style="font-size: 1.75rem; color: #8B5CF6; margin-bottom: 0.5rem;"></i>
+                <div class="label">Média Diária</div>
+                <div class="value" style="color: #8B5CF6;">{{ "%.1f"|format(media_diaria) }}</div>
+            </div>
+            <div class="kpi-card"
+                style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(16, 185, 129, 0.05) 100%); border-color: rgba(16, 185, 129, 0.2); border-left-color: var(--success-color);">
+                <i class="fas fa-chart-line"
+                    style="font-size: 1.75rem; color: var(--success-color); margin-bottom: 0.5rem;"></i>
+                <div class="label">Projeção Mensal</div>
+                <div class="value" style="color: var(--success-color);">{{ mensal_est }}</div>
+            </div>
+        </div>
+
+        <h4>Por Turno</h4>
+        <ul style="list-style: none; margin-bottom: 1.5rem;">
+            {% for turno, qtd in total_turnos.items() %}
+            <li
+                style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid var(--glass-border);">
+                <span>{{ turno }}</span>
+                <span>{{ qtd }} un.</span>
+            </li>
+            {% endfor %}
+        </ul>
+
+        <h4>Comparativo Ideal (Capacidade 100%)</h4>
+        <div style="margin-top: 0.5rem;">
+            <table class="data-table" style="margin-bottom: 1rem;">
+                <thead>
+                    <tr>
+                        <th>Período</th>
+                        <th>Ideal</th>
+                        <th>Real</th>
+                        <th>Diferença</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Semanal</td>
+                        <td>{{ "%.0f"|format(ideal['semanal']) }}</td>
+                        <td>{{ total_semanal }}</td>
+                        <td
+                            style="color: {{ 'var(--danger-color)' if (total_semanal - ideal['semanal']) < 0 else 'var(--success-color)' }};">
+                            {{ "%.0f"|format(total_semanal - ideal['semanal']) }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Mensal (Est.)</td>
+                        <td>{{ "%.0f"|format(ideal['mensal']) }}</td>
+                        <td>{{ mensal_est }}</td>
+                        <td
+                            style="color: {{ 'var(--danger-color)' if (mensal_est - ideal['mensal']) < 0 else 'var(--success-color)' }};">
+                            {{ "%.0f"|format(mensal_est - ideal['mensal']) }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Anual (Est.)</td>
+                        <td>{{ "%.0f"|format(ideal['anual']) }}</td>
+                        <td>{{ anual_est }}</td>
+                        <td
+                            style="color: {{ 'var(--danger-color)' if (anual_est - ideal['anual']) < 0 else 'var(--success-color)' }};">
+                            {{ "%.0f"|format(anual_est - ideal['anual']) }}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div style="display: flex; justify-content: space-between; margin-bottom: 0.25rem;">
+                <span>Progresso da Meta Semanal:</span>
+                <span style="color: var(--success-color);">{{ "%.1f"|format((total_semanal / ideal['semanal'] * 100) if
+                    ideal['semanal'] > 0 else 0) }}%</span>
+            </div>
+            <div
+                style="width: 100%; background: rgba(255,255,255,0.1); height: 8px; border-radius: 4px; overflow: hidden;">
+                <div
+                    style="height: 100%; background: var(--success-color); width: {{ (total_semanal / ideal['semanal'] * 100) if ideal['semanal'] > 0 else 0 }}%;">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card" style="margin-top: 2rem;">
+    <h3>Histórico de Lançamentos</h3>
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>Dia</th>
+                <th>Turno</th>
+                <th>Quantidade</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in producao %}
+            <tr>
+                <td>{{ item['dia'] }}</td>
+                <td>{{ item['turno'] }}</td>
+                <td>{{ item['quantidade'] }}</td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="3" style="text-align: center; color: var(--text-secondary);">Nenhum
+                    registro encontrado.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

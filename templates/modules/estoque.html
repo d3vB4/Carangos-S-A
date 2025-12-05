@@ -1,0 +1,138 @@
+{% extends "base.html" %}
+
+{% block title %}Módulo Estoque - Carangos S/A{% endblock %}
+
+{% block content %}
+<div style="margin-bottom: 2.5rem;">
+    <h1 style="font-size: 2rem; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.75rem;">
+        <i class="fas fa-warehouse" style="color: #8B5CF6;"></i> Módulo Estoque
+    </h1>
+    <p style="color: var(--text-secondary); font-size: 1.05rem;">Controle de insumos, cadastro de produtos e verificação
+        de custos.</p>
+</div>
+
+<div class="dashboard-grid-split" style="margin-top: 1rem;">
+    <!-- Form -->
+    <div class="card">
+        <h3>Novo Produto</h3>
+        <form method="POST">
+            <div class="form-group">
+                <label>Código</label>
+                <input type="text" name="codigo" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label>Nome</label>
+                <input type="text" name="nome" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label>Data Fabricação</label>
+                <input type="date" name="data_fabricacao" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Fornecedor</label>
+                <input type="text" name="fornecedor" class="form-control">
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <div class="form-group">
+                    <label>Quantidade</label>
+                    <input type="number" name="quantidade" class="form-control" required min="0">
+                </div>
+                <div class="form-group">
+                    <label>Valor Compra (R$)</label>
+                    <input type="number" name="valor_compra" class="form-control" required min="0" step="0.01">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Cadastrar</button>
+        </form>
+    </div>
+
+    <!-- Costs -->
+    <div class="card">
+        <h3 style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem;">
+            <i class="fas fa-chart-pie" style="color: #8B5CF6;"></i> Análise de Custos
+        </h3>
+        <div class="kpi-grid" style="grid-template-columns: repeat(3, 1fr); margin-bottom: 1.5rem;">
+            <div class="kpi-card">
+                <i class="fas fa-dollar-sign"
+                    style="font-size: 1.75rem; color: var(--primary-color); margin-bottom: 0.5rem;"></i>
+                <div class="label">Total Atual</div>
+                <div class="value" style="color: var(--primary-color);">R$ {{ "%.2f"|format(custo_total_atual) }}</div>
+            </div>
+            <div class="kpi-card"
+                style="background: linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(245, 158, 11, 0.05) 100%); border-color: rgba(245, 158, 11, 0.2); border-left-color: var(--warning-color);">
+                <i class="fas fa-calendar-alt"
+                    style="font-size: 1.75rem; color: var(--warning-color); margin-bottom: 0.5rem;"></i>
+                <div class="label">Projeção Mensal</div>
+                <div class="value" style="color: var(--warning-color);">R$ {{ "%.2f"|format(custo_mensal) }}</div>
+            </div>
+            <div class="kpi-card"
+                style="background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(139, 92, 246, 0.05) 100%); border-color: rgba(139, 92, 246, 0.2); border-left-color: #8B5CF6;">
+                <i class="fas fa-chart-line" style="font-size: 1.75rem; color: #8B5CF6; margin-bottom: 0.5rem;"></i>
+                <div class="label">Projeção Anual</div>
+                <div class="value" style="color: #8B5CF6;">R$ {{ "%.2f"|format(custo_anual) }}</div>
+            </div>
+        </div>
+
+        <h4>Lista de Produtos</h4>
+        <div class="form-group">
+            <input type="text" id="search-input" class="form-control" placeholder="Buscar por Código ou Nome..."
+                onkeyup="filterTable()">
+        </div>
+        <div style="max-height: 400px; overflow-y: auto;">
+            <table class="data-table" id="product-table">
+                <thead>
+                    <tr>
+                        <th>Cód</th>
+                        <th>Nome</th>
+                        <th>Qtd</th>
+                        <th>Valor</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for p in produtos %}
+                    <tr>
+                        <td>{{ p['codigo'] }}</td>
+                        <td>{{ p['nome'] }}</td>
+                        <td>{{ p['quantidade'] }}</td>
+                        <td>R$ {{ "%.2f"|format(p['valor_compra']) }}</td>
+                        <td>R$ {{ "%.2f"|format(p['quantidade'] * p['valor_compra']) }}</td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="5" style="text-align: center; color: var(--text-secondary);">Nenhum
+                            produto cadastrado.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    function filterTable() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("search-input");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("product-table");
+        tr = table.getElementsByTagName("tr");
+
+        for (i = 1; i < tr.length; i++) { // Start from 1 to skip the header row
+            tr[i].style.display = "none"; // Hide the row by default
+            td = tr[i].getElementsByTagName("td");
+            if (td.length > 0) {
+                // Check Code (index 0) and Name (index 1)
+                if (td[0] || td[1]) {
+                    txtValue = (td[0].textContent || td[0].innerText) + " " + (td[1].textContent || td[1].innerText);
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    }
+                }
+            }
+        }
+    }
+</script>
+{% endblock %}

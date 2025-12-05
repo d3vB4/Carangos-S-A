@@ -1,0 +1,20 @@
+{
+    "name": "carangos-sa",
+    "description": "Sistema de Gestão Integrada - Carangos S/A",
+    "runtime": {
+        "type": "python",
+        "version": "3.11"
+    },
+    "build": {
+        "buildpack": "heroku/python"
+    },
+    "healthcheck": {
+        "path": "/",
+        "interval": 30,
+        "timeout": 10
+    },
+    "resources": {
+        "cpu": "0.5",
+        "memory": "512Mi"
+    }
+}

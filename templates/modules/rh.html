@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+
+{% block title %}Módulo RH - Carangos S/A{% endblock %}
+
+{% block content %}
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2.5rem;">
+    <div>
+        <h1 style="font-size: 2rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.75rem;">
+            <i class="fas fa-users" style="color: var(--warning-color);"></i> Módulo RH
+        </h1>
+        <p style="color: var(--text-secondary); font-size: 1.05rem;">Gestão de funcionários e folha de pagamento</p>
+    </div>
+    <a href="{{ url_for('dashboard') }}" class="btn btn-secondary" style="width: auto;">
+        <i class="fas fa-arrow-left"></i> Voltar
+    </a>
+</div>
+
+<div class="dashboard-grid" style="grid-template-columns: 1fr 2fr;">
+    <!-- Employee Form -->
+    <div class="glass-panel" style="padding: 1.5rem;">
+        <h3>Cadastrar Funcionário</h3>
+        <form method="POST">
+            <div class="form-group">
+                <label>Nome Completo</label>
+                <input type="text" name="nome" class="form-control" required>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <div class="form-group">
+                    <label>CPF</label>
+                    <input type="text" name="cpf" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>RG</label>
+                    <input type="text" name="rg" class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Endereço</label>
+                <input type="text" name="endereco" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Telefone</label>
+                <input type="text" name="telefone" class="form-control">
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <div class="form-group">
+                    <label>Qtd. Filhos</label>
+                    <input type="number" name="qtd_filhos" class="form-control" value="0" min="0">
+                </div>
+                <div class="form-group">
+                    <label>Valor Hora (R$)</label>
+                    <input type="number" name="valor_hora" class="form-control" required step="0.01">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Cargo</label>
+                <select name="cargo" class="form-control">
+                    <option value="Operario">Operário</option>
+                    <option value="Analista">Analista</option>
+                    <option value="Gerente">Gerente</option>
+                    <option value="Diretor">Diretor</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Cadastrar</button>
+        </form>
+    </div>
+
+    <!-- Payroll Report -->
+    <div class="glass-panel" style="padding: 1.5rem;">
+        <h3 style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+            <i class="fas fa-file-invoice-dollar" style="color: var(--warning-color);"></i> Folha de Pagamento
+            (Simulação Mensal)
+        </h3>
+        <div class="alert alert-info" style="margin-bottom: 1.5rem;">
+            Calculado com base em 160h normais + 10h extras (exceto gerência).
+        </div>
+
+        <div style="max-height: 500px; overflow-y: auto;">
+            <table style="width: 100%; border-collapse: collapse;">
+                <thead>
+                    <tr style="text-align: left; border-bottom: 1px solid var(--glass-border);">
+                        <th style="padding: 0.5rem;">Nome</th>
+                        <th style="padding: 0.5rem;">Cargo</th>
+                        <th style="padding: 0.5rem;">Bruto</th>
+                        <th style="padding: 0.5rem;">IRPF</th>
+                        <th style="padding: 0.5rem;">Paga IR?</th>
+                        <th style="padding: 0.5rem;">Líquido</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for f in folha %}
+                    <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                        <td style="padding: 0.5rem;">{{ f['nome'] }}</td>
+                        <td style="padding: 0.5rem;">{{ f['cargo'] }}</td>
+                        <td style="padding: 0.5rem;">R$ {{ "%.2f"|format(f['bruto']) }}</td>
+                        <td style="padding: 0.5rem; color: var(--danger-color);">R$ {{ "%.2f"|format(f['irpf']) }}</td>
+                        <td style="padding: 0.5rem;">
+                            {% if f['irpf'] > 0 %}
+                            <span style="color: var(--danger-color); font-weight: bold;">Sim</span>
+                            {% else %}
+                            <span style="color: var(--text-secondary);">Não</span>
+                            {% endif %}
+                        </td>
+                        <td style="padding: 0.5rem; color: var(--success-color); font-weight: bold;">R$ {{
+                            "%.2f"|format(f['liquido']) }}</td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="6" style="padding: 1rem; text-align: center; color: var(--text-secondary);">Nenhum
+                            funcionário cadastrado.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
