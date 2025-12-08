@@ -208,7 +208,7 @@ def mod_operacional():
         
     # Use Core Module Functions
     stats = operacional.calcular_estatisticas(dados_formatados)
-    ideal = operacional.calcular_capacidade_ideal()
+    ideal = operacional.calcular_capacidade_ideal(meta_mensal=750) # Passando meta padrão para evitar input interativo
     mensal_est, anual_est = operacional.simular_producao(stats['total_semanal'])
     
     return render_template('modules/operacional.html', 
