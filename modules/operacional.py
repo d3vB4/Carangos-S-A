@@ -1,4 +1,8 @@
 
+# Nome: Alexandre Calmon
+# Módulo: Operacional
+# Descrição: Gerencia cadastro de produção e estatísticas operacionais.
+
 import json
 import os
 
