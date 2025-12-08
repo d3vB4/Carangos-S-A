@@ -282,6 +282,38 @@ def gerar_relatorio_fabrica(dias_trabalhados=30):
     print("-"*80)
     print(f"TOTAL:            R$ {total:>12.2f}")                    # Custo total
     print("="*80)
+
+    # ========== SEÇÃO 6: INSIGHTS E ANÁLISES ==========
+    print(f"\n📈 INSIGHTS E ANÁLISES")
+    print("-"*80)
+    
+    # 1. Distribuição de Custos
+    if total > 0:
+        pct_agua = (agua['custo_total'] / total) * 100
+        pct_energia = (energia['custo_total'] / total) * 100
+        pct_salarios = (salarios['custo_total_bruto'] / total) * 100
+        
+        print("Distribuição de Custos:")
+        print(f"  - Salários: {pct_salarios:>6.1f}%")
+        print(f"  - Energia:  {pct_energia:>6.1f}%")
+        print(f"  - Água:     {pct_agua:>6.1f}%")
+        
+        # 2. Maior Despesa
+        custos = {
+            "Salários": salarios['custo_total_bruto'],
+            "Energia": energia['custo_total'],
+            "Água": agua['custo_total']
+        }
+        maior_despesa = max(custos, key=custos.get)
+        valor_maior = custos[maior_despesa]
+        print(f"\nMaior Despesa: {maior_despesa} (R$ {valor_maior:.2f})")
+    
+    # 3. Custo Médio por Funcionário
+    if agua['qtd_funcionarios'] > 0:
+        custo_medio = total / agua['qtd_funcionarios']
+        print(f"Custo Médio por Funcionário: R$ {custo_medio:.2f}")
+        
+    print("="*80)
     
     # Retorna os dados calculados para uso posterior se necessário
     return {'agua': agua, 'energia': energia, 'salarios': salarios, 'total': total}
