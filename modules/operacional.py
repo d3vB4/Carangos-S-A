@@ -7,6 +7,7 @@ import json
 import os
 
 # Configuração do diretório de dados
+# O módulo utiliza uma variável de ambiente ou default para flexibilidade em diferentes ambientes (dev/prod)
 DATA_DIR = os.getenv("DATA_DIR", "data")
 if not os.path.exists(DATA_DIR):
     os.makedirs(DATA_DIR)
@@ -40,21 +41,26 @@ def cadastrar_producao():
     
     print("\n=== Cadastro de Produção Semanal ===")
     
+    # Itera sobre cada dia da semana para coletar dados completos
     for dia in dias_semana:
         print(f"\nDia: {dia}")
         producao_dia = {"dia": dia, "turnos": {}}
         
+        # Para cada dia, coleta dados dos 3 turnos
         for turno in turnos:
             while True:
                 try:
+                    # Input interativo protegido por try/except para garantir números inteiros
                     qtd = int(input(f"  Produção Turno {turno}: "))
+                    
+                    # Regra de negócio: produção não pode ser negativa
                     if qtd < 0:
                         print("    Erro: A quantidade não pode ser negativa.")
                         continue
                     
                     producao_dia["turnos"][turno] = qtd
                     
-                    # Adiciona ao formato flat para salvar
+                    # Prepara estrutura plana (flat) para facilitar análise futura ou exportação CSV/BD
                     dados_flat.append({
                         "dia": dia,
                         "turno": turno,
@@ -66,17 +72,18 @@ def cadastrar_producao():
         
         producao_semanal.append(producao_dia)
     
-    # Salvar dados
+    # Persistência dos dados
     try:
-        # Carregar dados existentes se houver
+        # Tenta carregar dados antigos para não sobrescrever histórico
         dados_existentes = []
         if os.path.exists(DATA_FILE):
             with open(DATA_FILE, "r", encoding="utf-8") as f:
                 dados_existentes = json.load(f)
         
-        # Adicionar novos dados
+        # Concatena novos dados
         dados_existentes.extend(dados_flat)
         
+        # Salva o arquivo atualizado com indentação para legibilidade humana
         with open(DATA_FILE, "w", encoding="utf-8") as f:
             json.dump(dados_existentes, f, indent=4, ensure_ascii=False)
             
@@ -102,22 +109,20 @@ def calcular_estatisticas(dados):
             'media_por_turno': dict,  # {turno: média}
             'total_por_turno': dict   # {turno: total}
         }
-        
-    Cálculos:
-        - Total Semanal = Σ todas produções
-        - Média Diária = Total Semanal / 7
-        - Média por Turno = Total do Turno / 7
     """
     total_semanal = 0
     total_por_turno = {"Manhã": 0, "Tarde": 0, "Noite": 0}
     
+    # Itera pelos dados estruturados para somar totais
     for dia_data in dados:
         for turno, qtd in dia_data["turnos"].items():
             total_semanal += qtd
             total_por_turno[turno] += qtd
             
+    # Cálculo de médias simples (considerando 7 dias fixos)
     media_diaria = total_semanal / 7
     
+    # Dictionary comprehension para calcular média de cada turno
     media_por_turno = {
         turno: total / 7 
         for turno, total in total_por_turno.items()
@@ -133,100 +138,118 @@ def calcular_estatisticas(dados):
 def simular_producao(total_semanal):
     """
     Simula a produção mensal e anual com base na produção semanal.
-    
     Args:
         total_semanal (int): Total produzido na semana
-        
     Returns:
         tuple: (mensal, anual)
-        
-    Fórmulas:
-        - Mensal = Total Semanal × 4
-        - Anual = Total Semanal × 52
     """
+    # Projeção linear simples: Mês comercial de 4 semanas, Ano de 52 semanas
     mensal = total_semanal * 4
     anual = total_semanal * 52
     return mensal, anual
 
-def calcular_capacidade_ideal():
+def calcular_capacidade_ideal(meta_mensal=None):
     """
-    Calcula a produção ideal com 100% da capacidade.
-    Capacidade padrão: 500 unidades/mês com 2 turnos.
-    Terceiro turno aumenta 50%.
+    Calcula a produção ideal com base em uma meta definida pelo usuário.
+    Se nenhuma meta for passada, solicita input interativo.
     
+    Args:
+        meta_mensal (float, optional): Meta mensal pré-definida. Se None, pede ao usuário.
+        
     Returns:
         dict: {
-            'semanal': float,  # 187.5 unidades
-            'mensal': float,   # 750 unidades
-            'anual': float     # 9000 unidades
+            'semanal': float,
+            'mensal': float,
+            'anual': float
         }
-        
-    Premissas:
-        - Capacidade base (2 turnos): 500/mês
-        - Com 3 turnos: 750/mês (+50%)
     """
-    # Capacidade base é 500/mês (2 turnos)
-    # Com 3 turnos aumenta 50% => 750/mês
-    cap_mensal = 750
-    cap_semanal = cap_mensal / 4
-    cap_anual = cap_mensal * 12
+    # Permite que o usuário defina sua própria meta (requisito: "quero eu mesmo setar")
+    if meta_mensal is None:
+        try:
+            print("\n=== Configuração de Metas ===")
+            entrada = input("Digite a meta de produção MENSAL desejada (Ex: 750): ")
+            meta_mensal = float(entrada)
+            if meta_mensal <= 0:
+                print("⚠️ Meta inválida ou zero. Usando padrão de 750 un.")
+                meta_mensal = 750
+        except ValueError:
+            print("⚠️ Valor inválido. Usando padrão de 750 un.")
+            meta_mensal = 750
+            
+    # Deriva as outras metas a partir da mensal
+    meta_semanal = meta_mensal / 4
+    meta_anual = meta_mensal * 12
     
     return {
-        "semanal": cap_semanal,
-        "mensal": cap_mensal,
-        "anual": cap_anual
+        "semanal": meta_semanal,
+        "mensal": meta_mensal,
+        "anual": meta_anual
     }
 
 def gerar_relatorio(dados, estatisticas, ideal):
     """
-    Emite um relatório comparativo entre produção real e ideal.
+    Emite um relatório executivo com insights detalhados.
     
     Args:
-        dados (list): Dados de produção
-        estatisticas (dict): Estatísticas calculadas
-        ideal (dict): Capacidade ideal
-        
-    Side Effects:
-        Imprime relatório formatado com:
-        - Produção total e médias
-        - Simulações mensal/anual
-        - Comparativo com capacidade ideal
-        - Diferenças (gaps) de produção
+        dados (list): Média bruta
+        estatisticas (dict): Dados processados
+        ideal (dict): Metas
     """
     sim_mensal, sim_anual = simular_producao(estatisticas["total_semanal"])
     
-    print("\n" + "="*50)
-    print("RELATÓRIO OPERACIONAL SEMANAL")
-    print("="*50)
+    print("\n" + "="*60)
+    print("📋 RELATÓRIO OPERACIONAL EXECUTIVO - INSIGHTS")
+    print("="*60)
     
+    # Seção 1: Dados Reais
     print(f"\n📊 PRODUÇÃO REAL:")
     print(f"  • Total Semanal: {estatisticas['total_semanal']} unidades")
     print(f"  • Média Diária:  {estatisticas['media_diaria']:.1f} unidades")
     
-    print("\n🔄 POR TURNO (MÉDIA/DIA):")
+    # Seção 2: Desempenho por Turno
+    print("\n🔄 PERFORMANCE POR TURNO:")
+    # Identifica o melhor turno para insight
+    melhor_turno = max(estatisticas["media_por_turno"], key=estatisticas["media_por_turno"].get)
+    pior_turno = min(estatisticas["media_por_turno"], key=estatisticas["media_por_turno"].get)
+    
     for turno, media in estatisticas["media_por_turno"].items():
-        print(f"  • {turno:<6}: {media:.1f} un")
+        destaque = "⭐ (Melhor)" if turno == melhor_turno else ""
+        print(f"  • {turno:<6}: {media:.1f} un/dia {destaque}")
         
-    print("\n🔮 PROJEÇÕES:")
-    print(f"  • Mensal: {sim_mensal} un")
-    print(f"  • Anual:  {sim_anual} un")
+    # Seção 3: Comparativo e Insights
+    print("\n🎯 ANÁLISE DE METAS E INSIGHTS:")
+    print(f"  • Meta Semanal (Definida): {ideal['semanal']:.1f} un")
+    print(f"  • Realizado:               {estatisticas['total_semanal']} un")
     
-    print("\n🎯 COMPARATIVO COM IDEAL (3 TURNOS):")
-    print(f"  • Meta Semanal: {ideal['semanal']:.1f} un")
-    print(f"  • Realizado:    {estatisticas['total_semanal']} un")
-    
+    # Cálculo de eficiência
+    eficiencia = (estatisticas['total_semanal'] / ideal['semanal']) * 100
     diff = estatisticas['total_semanal'] - ideal['semanal']
+    
     status = "ACIMA DA META" if diff >= 0 else "ABAIΧΟ DA META"
     cor = "✅" if diff >= 0 else "⚠️"
     
     print(f"\n  STATUS: {cor} {status}")
-    print(f"  Diferença: {diff:+.1f} unidades")
-    print("="*50 + "\n")
+    print(f"  Eficiência: {eficiencia:.1f}% da meta")
+    print(f"  Diferença:  {diff:+.1f} unidades")
+    
+    # Seção 4: Recomendações Automáticas (Insights Avançados)
+    print("\n💡 INSIGHTS E RECOMENDAÇÕES:")
+    if eficiencia >= 100:
+        print("  ✅ A equipe está com excelente desempenho! Considere aumentar a meta mensal.")
+    elif eficiencia >= 80:
+        print("  ⚠️ A meta está próxima. Foque no turno com menor desempenho para alcançar 100%.")
+    else:
+        print("  ❌ Desempenho crítico. É necessário rever processos ou verificar ausências.")
+        
+    print(f"  👉 Dica: O turno '{pior_turno}' tem o menor rendimento. Investigue gargalos neste horário.")
+
+    print("="*60 + "\n")
 
 if __name__ == "__main__":
-    # Teste rápido se executado diretamente
+    # Teste rápido interativo
     print("Iniciando módulo operacional (Modo Teste)...")
     dados = cadastrar_producao()
     stats = calcular_estatisticas(dados)
-    ideal = calcular_capacidade_ideal()
+    # Agora a capacidade pede input se não passar argumento
+    ideal = calcular_capacidade_ideal() 
     gerar_relatorio(dados, stats, ideal)

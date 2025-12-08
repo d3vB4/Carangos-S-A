@@ -46,13 +46,24 @@ class TestOperacional(unittest.TestCase):
         self.assertEqual(mensal, 4000) # 1000 * 4
         self.assertEqual(anual, 52000) # 1000 * 52
 
-    def test_calcular_capacidade_ideal(self):
-        """Testa o cálculo da capacidade ideal"""
+    @patch('builtins.input', return_value='1000') # Simula entrada do usuário de 1000 como meta mensal
+    @patch('builtins.print')
+    def test_calcular_capacidade_ideal_input(self, mock_print, mock_input):
+        """Testa o cálculo da capacidade ideal com input do usuário"""
+        # Teste sem argumento (ativa input)
         ideal = operacional.calcular_capacidade_ideal()
         
-        self.assertEqual(ideal['mensal'], 750)
-        self.assertEqual(ideal['semanal'], 187.5) # 750 / 4
-        self.assertEqual(ideal['anual'], 9000) # 750 * 12
+        self.assertEqual(ideal['mensal'], 1000)
+        self.assertEqual(ideal['semanal'], 250) # 1000 / 4
+        self.assertEqual(ideal['anual'], 12000) # 1000 * 12
+        
+    def test_calcular_capacidade_ideal_argumento(self):
+        """Testa o cálculo da capacidade ideal passando argumento direto"""
+        ideal = operacional.calcular_capacidade_ideal(meta_mensal=2000)
+        
+        self.assertEqual(ideal['mensal'], 2000)
+        self.assertEqual(ideal['semanal'], 500)
+        self.assertEqual(ideal['anual'], 24000)
 
     @patch('builtins.input', side_effect=['10', '20', '30'] * 7) # Input para 7 dias * 3 turnos
     @patch('builtins.print') # Silencia prints
