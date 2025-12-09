@@ -190,6 +190,7 @@ def menu_financeiro():
         print("1. Gerenciar Despesas Fixas")
         print("2. Ver Relatório Financeiro")
         print("3. Relatório Completo da Fábrica (Água, Luz e Salários)")
+        print("4. Indicadores Financeiros (Custo/Carro e Impostos)")
         print("0. Voltar")
         print("="*40)
         
@@ -233,6 +234,25 @@ def menu_financeiro():
             
             # Gerar relatório da fábrica com as novas regras (30 dias, 24h/dia)
             financeiro.gerar_relatorio_fabrica()
+            pause()
+        elif opcao == '4':
+            # Option 4: New Financial Indicators (including CSLL)
+            indicadores = financeiro.calcular_indicadores_financeiros()
+            print("\n" + "="*50)
+            print("   INDICADORES FINANCEIROS & IMPOSTOS")
+            print("="*50)
+            print(f"Produção Total:     {indicadores['total_produzido']} carros")
+            print(f"Custo Fixo Total:   R$ {indicadores['custo_fixo_total']:.2f}")
+            print(f"Custo Estoque:      R$ {indicadores['custo_estoque_total']:.2f}")
+            print("-" * 50)
+            print(f"CUSTO UNITÁRIO:     R$ {indicadores['custo_unitario']:.2f}")
+            print(f"PREÇO VENDA (+50%): R$ {indicadores['preco_venda']:.2f}")
+            print("-" * 50)
+            print("Deduções e Impostos:")
+            print(f"  Lucro Bruto:      R$ {indicadores['lucro_bruto']:.2f}")
+            print(f"  CSLL (9%):       -R$ {indicadores['csll']:.2f}")
+            print("=" * 50)
+            print(f"LUCRO LÍQUIDO:      R$ {indicadores['lucro_liquido_final']:.2f}")
             pause()
         elif opcao == '0':
             break

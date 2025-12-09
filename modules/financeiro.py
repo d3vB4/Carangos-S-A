@@ -1,6 +1,6 @@
-# Nome do Aluno: [Seu Nome Aqui]
+# Nome do Aluno: [Nilton Santana]
 # Módulo: Financeiro
-# Descrição: Gerencia cálculo de custos de água, luz e despesas da fábrica.
+# Descrição: 
 
 # Importa o módulo de gerenciamento de dados (para salvar/carregar arquivos JSON)
 try:
@@ -13,6 +13,12 @@ try:
     from modules import rh
 except ImportError:
     import rh
+
+# Importa módulo Estoque para cálculo de custos de insumos
+try:
+    from modules import estoque
+except ImportError:
+    import estoque
 
 # ============================================================================
 # FUNÇÕES PARA CÁLCULO DE UTILIDADES DA FÁBRICA (24/7, 30 DIAS)
@@ -282,9 +288,99 @@ def gerar_relatorio_fabrica(dias_trabalhados=30):
     print("-"*80)
     print(f"TOTAL:            R$ {total:>12.2f}")                    # Custo total
     print("="*80)
+
+    # ========== SEÇÃO 6: INSIGHTS E ANÁLISES ==========
+    print(f"\n📈 INSIGHTS E ANÁLISES")
+    print("-"*80)
+    
+    # 1. Distribuição de Custos
+    if total > 0:
+        pct_agua = (agua['custo_total'] / total) * 100
+        pct_energia = (energia['custo_total'] / total) * 100
+        pct_salarios = (salarios['custo_total_bruto'] / total) * 100
+        
+        print("Distribuição de Custos:")
+        print(f"  - Salários: {pct_salarios:>6.1f}%")
+        print(f"  - Energia:  {pct_energia:>6.1f}%")
+        print(f"  - Água:     {pct_agua:>6.1f}%")
+        
+        # 2. Maior Despesa
+        custos = {
+            "Salários": salarios['custo_total_bruto'],
+            "Energia": energia['custo_total'],
+            "Água": agua['custo_total']
+        }
+        maior_despesa = max(custos, key=custos.get)
+        valor_maior = custos[maior_despesa]
+        print(f"\nMaior Despesa: {maior_despesa} (R$ {valor_maior:.2f})")
+    
+    # 3. Custo Médio por Funcionário
+    if agua['qtd_funcionarios'] > 0:
+        custo_medio = total / agua['qtd_funcionarios']
+        print(f"Custo Médio por Funcionário: R$ {custo_medio:.2f}")
+        
+    print("="*80)
     
     # Retorna os dados calculados para uso posterior se necessário
     return {'agua': agua, 'energia': energia, 'salarios': salarios, 'total': total}
+
+
+def calcular_indicadores_financeiros():
+    """
+    Calcula indicadores financeiros completos integrando Produção, Estoque e RH.
+    
+    Indicadores calculados:
+    1. Custo Fixo Total: Água + Luz + Salários (Calculado via gerar_relatorio_fabrica)
+    2. Custo de Estoque: Valor total dos produtos em estoque
+    3. Produção Total: Soma de todos os veículos produzidos (data/producao.json)
+    4. Custo Unitário: (Custo Fixo + Custo Estoque) / Total Produzido
+    5. Preço de Venda: Custo Unitário + 50% de margem
+    """
+    # 1. Calcular Custo Fixo Total (Fábrica)
+    # Chamamos as funções diretamente para obter os valores sem imprimir o relatório completo
+    agua = calcular_custo_agua_fabrica()
+    energia = calcular_custo_luz_fabrica()
+    salarios = calcular_salarios_fabrica()
+    
+    custo_fixo_total = agua['custo_total'] + energia['custo_total'] + salarios['custo_total_bruto']
+    
+    # 2. Calcular Custo de Estoque
+    # Tenta usar a função do módulo estoque
+    try:
+        dados_estoque = estoque.calcular_custos()
+        custo_estoque_total = dados_estoque['total_atual']
+    except Exception:
+        custo_estoque_total = 0.0
+
+    # 3. Calcular Produção Total
+    producao = data_manager.load_data('producao.json')
+    total_produzido = sum(item['quantidade'] for item in producao) if producao else 0
+    
+    # 4. Calcular Custo Unitário
+    if total_produzido > 0:
+        custo_total_geral = custo_fixo_total + custo_estoque_total
+        custo_unitario = custo_total_geral / total_produzido
+    else:
+        custo_unitario = 0.0
+        
+    # 5. Calcular Preço de Venda (+50%)
+    preco_venda = custo_unitario * 1.5
+    
+    # 6. Calcular Impostos (CSLL - 9% sobre o Lucro)
+    lucro_bruto = preco_venda - custo_unitario
+    csll = lucro_bruto * 0.09
+    lucro_liquido_final = lucro_bruto - csll
+    
+    return {
+        "custo_fixo_total": custo_fixo_total,
+        "custo_estoque_total": custo_estoque_total,
+        "total_produzido": total_produzido,
+        "custo_unitario": custo_unitario,
+        "preco_venda": preco_venda,
+        "lucro_bruto": lucro_bruto,
+        "csll": csll,
+        "lucro_liquido_final": lucro_liquido_final
+    }
 
 
 # ============================================================================
@@ -377,3 +473,15 @@ if __name__ == "__main__":
         print(f"\n✓ {len(funcionarios)} funcionário(s) encontrado(s)")
         print("\nGerando relatório da fábrica (30 dias)...")
         gerar_relatorio_fabrica()
+        
+        print("\n" + "="*80)
+        print("TESTE DE INDICADORES FINANCEIROS")
+        print("="*80)
+        indicadores = calcular_indicadores_financeiros()
+        print(f"Produção Total: {indicadores['total_produzido']} unidades")
+        print(f"Custo Fixo Total: R$ {indicadores['custo_fixo_total']:.2f}")
+        print(f"Custo Estoque: R$ {indicadores['custo_estoque_total']:.2f}")
+        print(f"Custo Unitário: R$ {indicadores['custo_unitario']:.2f} / carro")
+        print(f"Preço de Venda Sugerido: R$ {indicadores['preco_venda']:.2f}")
+        print(f"CSLL (9% sobre Lucro): R$ {indicadores['csll']:.2f}")
+        print(f"Lucro Líquido Final: R$ {indicadores['lucro_liquido_final']:.2f}")
