@@ -366,12 +366,20 @@ def calcular_indicadores_financeiros():
     # 5. Calcular Preço de Venda (+50%)
     preco_venda = custo_unitario * 1.5
     
+    # 6. Calcular Impostos (CSLL - 9% sobre o Lucro)
+    lucro_bruto = preco_venda - custo_unitario
+    csll = lucro_bruto * 0.09
+    lucro_liquido_final = lucro_bruto - csll
+    
     return {
         "custo_fixo_total": custo_fixo_total,
         "custo_estoque_total": custo_estoque_total,
         "total_produzido": total_produzido,
         "custo_unitario": custo_unitario,
-        "preco_venda": preco_venda
+        "preco_venda": preco_venda,
+        "lucro_bruto": lucro_bruto,
+        "csll": csll,
+        "lucro_liquido_final": lucro_liquido_final
     }
 
 
@@ -475,3 +483,5 @@ if __name__ == "__main__":
         print(f"Custo Estoque: R$ {indicadores['custo_estoque_total']:.2f}")
         print(f"Custo Unitário: R$ {indicadores['custo_unitario']:.2f} / carro")
         print(f"Preço de Venda Sugerido: R$ {indicadores['preco_venda']:.2f}")
+        print(f"CSLL (9% sobre Lucro): R$ {indicadores['csll']:.2f}")
+        print(f"Lucro Líquido Final: R$ {indicadores['lucro_liquido_final']:.2f}")
