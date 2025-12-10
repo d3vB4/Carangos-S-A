@@ -1,285 +1,216 @@
-# 📚 Índice de Documentação - Sistema Carangos S/A
+# Sistema de Gestão Integrada - Carangos S/A
 
-Bem-vindo à documentação completa do Sistema de Gestão Integrada Carangos S/A!
+Bem-vindo ao repositório do **Sistema de Gestão Integrada da Carangos S/A**. Este projeto é uma solução completa para o gerenciamento de uma fábrica de automóveis, integrando os setores Operacional, de Estoque, Financeiro e de Recursos Humanos.
 
----
+O sistema foi desenvolvido em **Python** e oferece duas interfaces de uso: uma **Aplicação Web** moderna (Flask) e uma **Interface de Terminal** robusta.
 
-## 🎯 Início Rápido
+## 🚀 Funcionalidades Principais
 
-### Para Novos Desenvolvedores
-1. 📖 Leia o [README.md](../README.md) principal
-2. 📋 Consulte [README_MODULES.md](../README_MODULES.md) para visão geral dos módulos
-3. 🎴 Use [TRELLO_CARD_TEMPLATE.md](../TRELLO_CARD_TEMPLATE.md) para organizar tarefas
+O sistema é dividido em 4 módulos principais, todos integrados e com persistência de dados em JSON:
 
-### Para Contribuidores
-1. 📖 Leia [DOCUMENTATION_GUIDE.md](../DOCUMENTATION_GUIDE.md)
-2. 📋 Consulte [MODULES_DOCUMENTATION.md](../MODULES_DOCUMENTATION.md)
-3. 🚀 Use o [template de PR](../.github/PULL_REQUEST_TEMPLATE.md)
+### 1. 🏭 Módulo Operacional
+*   **Registro de Produção**: Controle diário de produção por turno (Manhã, Tarde, Noite).
+*   **Estatísticas**: Cálculo de médias, totais semanais e simulações mensais/anuais.
+*   **Relatórios**: Comparativo visual entre Produção Real vs Capacidade Ideal.
 
----
+### 2. 📦 Módulo de Estoque
+*   **Gestão de Produtos**: Cadastro de peças e insumos com verificação de duplicidade.
+*   **Busca Inteligente**: Pesquisa por código ou nome do produto.
+*   **Análise de Custos**: Projeção de custos de estoque (Mensal/Anual).
 
-## 📂 Estrutura da Documentação
+### 3. 💰 Módulo Financeiro
+*   **Despesas Fixas**: Gerenciamento de custos operacionais (Água, Luz, Salários, Impostos).
+*   **Precificação**: Cálculo automático do **Custo de Produção** e sugestão de **Preço de Venda** com margem de lucro configurável.
 
-### 📖 Documentação Principal
-
-#### [README.md](../README.md)
-**README principal do projeto**
-- Visão geral do sistema
-- Funcionalidades principais
-- Instalação e configuração
-- Credenciais de acesso
-- Como usar (Web e Terminal)
-
-#### [README_MODULES.md](../README_MODULES.md) ⭐
-**Resumo executivo dos módulos**
-- Visão geral rápida
-- Links para toda documentação
-- Estatísticas dos módulos
-- Início rápido
+### 4. 👥 Módulo de Recursos Humanos (RH)
+*   **Gestão de Funcionários**: Cadastro completo com cargo e valor hora.
+*   **Folha de Pagamento**: Cálculo automatizado de Salário Bruto, Horas Extras, Descontos de IRPF e Salário Líquido.
 
 ---
 
-### 📋 Documentação Técnica
+## 🔐 Segurança e Acesso (RBAC)
 
-#### [MODULES_DOCUMENTATION.md](../MODULES_DOCUMENTATION.md)
-**Documentação técnica completa**
-- 22 funções documentadas profissionalmente
-- Estruturas de dados detalhadas
-- Fórmulas e cálculos
-- Organização para Trello
-- 27 commits sugeridos
+O sistema implementa um **Controle de Acesso Baseado em Funções (RBAC)** hierárquico, refletindo o organograma da empresa:
 
-**Conteúdo:**
-- Data Manager (2 funções)
-- Estoque (5 funções)
-- Financeiro (4 funções)
-- Operacional (5 funções)
-- RH (6 funções)
+*   **Nível Global** (`presidente`, `conselho`, `admin`): Acesso total a todos os módulos e ao Dashboard Executivo.
+*   **Diretoria Operacional**: Acesso aos módulos **Operacional** e **Estoque**.
+*   **Diretoria Financeira**: Acesso exclusivo ao módulo **Financeiro**.
+*   **Diretoria de RH**: Acesso exclusivo ao módulo de **RH**.
+*   **Gerentes/Funcionários**: Acesso restrito às funções do seu departamento específico.
 
 ---
 
-### 📖 Guias de Uso
+## 📂 Estrutura do Projeto
 
-#### [DOCUMENTATION_GUIDE.md](../DOCUMENTATION_GUIDE.md)
-**Guia completo de uso da documentação**
-- Como usar cada documento
-- Fluxo de trabalho completo
-- Checklists rápidas
-- Troubleshooting
-- Boas práticas
+A arquitetura do projeto foi organizada para garantir modularidade e facilidade de manutenção:
+
+```
+Sistema Aut Carangos SA/
+├── app.py                 # Aplicação Web (Flask)
+├── main.py                # Aplicação Terminal (CLI)
+├── modules/               # Lógica de Negócio (Core)
+│   ├── data_manager.py    # Gerenciador de Persistência (JSON)
+│   ├── operacional.py
+│   ├── estoque.py
+│   ├── financeiro.py
+│   └── rh.py
+├── data/                  # Banco de Dados (Arquivos JSON)
+│   ├── users.json         # Usuários e Senhas (Hash)
+│   ├── producao.json
+│   ├── produtos.json
+│   ├── despesas.json
+│   └── funcionarios.json
+├── scripts/               # Scripts Utilitários
+│   └── seed_users.py      # Populador de Usuários Iniciais
+├── tests/                 # Testes Automatizados
+│   ├── test_app.py        # Testes da Web App
+│   └── test_terminal_flow.py # Testes do Terminal (E2E)
+├── templates/             # Templates HTML (Jinja2)
+└── static/                # Arquivos Estáticos (CSS, Imagens)
+```
 
 ---
+
+## 📚 Documentação
+
+O projeto possui documentação completa e organizada para facilitar o desenvolvimento e manutenção:
+
+### 📖 Documentação dos Módulos
+- **[README_MODULES.md](./README_MODULES.md)** - Resumo executivo da documentação dos módulos
+- **[MODULES_DOCUMENTATION.md](./MODULES_DOCUMENTATION.md)** - Documentação técnica completa (22 funções documentadas)
+- **[DOCUMENTATION_GUIDE.md](./DOCUMENTATION_GUIDE.md)** - Guia de uso de toda a documentação
 
 ### 🎴 Organização e Workflow
+- **[TRELLO_CARD_TEMPLATE.md](./TRELLO_CARD_TEMPLATE.md)** - Templates de cards para Trello (5 cards prontos)
+- **[PULL_REQUEST_TEMPLATE.md](./.github/PULL_REQUEST_TEMPLATE.md)** - Template padrão de Pull Request
 
-#### [TRELLO_CARD_TEMPLATE.md](../TRELLO_CARD_TEMPLATE.md)
-**Templates personalizados para Trello**
-- 5 cards detalhados (um por módulo)
-- Checklists de implementação
-- Checklists de documentação
-- Checklists de testes
-- Configuração de labels
-- Métricas de acompanhamento
+### 🚀 Deploy
+- **[DEPLOY.md](./DEPLOY.md)** - Guia completo de deploy em nuvem
 
-#### [PULL_REQUEST_TEMPLATE.md](../.github/PULL_REQUEST_TEMPLATE.md)
-**Template padrão de Pull Request**
-- Seções estruturadas
-- Checklist de qualidade
-- Documentação de testes
-- Breaking changes
-- Métricas
+**💡 Comece por aqui:** [README_MODULES.md](./README_MODULES.md) para ter uma visão geral rápida!
 
 ---
 
-### 🚀 Deploy e Infraestrutura
+## 🛠️ Instalação e Configuração
 
-#### [DEPLOY.md](../DEPLOY.md)
-**Guia completo de deploy**
-- Deploy em Render
-- Deploy em Railway
-- Deploy em Northflank
-- Configuração Docker
-- Variáveis de ambiente
+### Pré-requisitos
+*   Python 3.8 ou superior.
 
----
+### Passo a Passo
 
-## 🗂️ Documentação por Categoria
+1.  **Clone o repositório** (ou extraia os arquivos):
+    ```bash
+    cd "Sistema Aut Carangos SA"
+    ```
 
-### 🏗️ Arquitetura
-- [README.md](../README.md) → Seção "Estrutura do Projeto"
-- [MODULES_DOCUMENTATION.md](../MODULES_DOCUMENTATION.md) → Estruturas de dados
+2.  **Instale as dependências**:
+    ```bash
+    pip install -r requirements.txt
+    ```
+    
+    Ou manualmente:
+    ```bash
+    pip install flask werkzeug python-dotenv
+    ```
 
-### 💻 Desenvolvimento
-- [DOCUMENTATION_GUIDE.md](../DOCUMENTATION_GUIDE.md) → Fluxo de trabalho
-- [MODULES_DOCUMENTATION.md](../MODULES_DOCUMENTATION.md) → Documentação de funções
-- [PULL_REQUEST_TEMPLATE.md](../.github/PULL_REQUEST_TEMPLATE.md) → Padrão de PR
-
-### 🎴 Gestão de Projeto
-- [TRELLO_CARD_TEMPLATE.md](../TRELLO_CARD_TEMPLATE.md) → Cards e organização
-- [MODULES_DOCUMENTATION.md](../MODULES_DOCUMENTATION.md) → Estrutura de commits
-
-### 🚀 DevOps
-- [DEPLOY.md](../DEPLOY.md) → Deploy em produção
-- [README.md](../README.md) → Instalação local
-
-### 🧪 Testes
-- [README.md](../README.md) → Seção "Testes Automatizados"
-- [MODULES_DOCUMENTATION.md](../MODULES_DOCUMENTATION.md) → Testes por módulo
+3.  **Inicialize o Banco de Dados de Usuários**:
+    Execute o script para criar os usuários padrão e as estruturas de dados:
+    ```bash
+    python scripts/seed_users.py
+    ```
 
 ---
 
-## 📊 Estatísticas da Documentação
+## ☁️ Deploy na Nuvem
 
-| Documento | Linhas | Seções | Propósito |
-|-----------|--------|--------|-----------|
-| README.md | ~200 | 10+ | Visão geral do projeto |
-| README_MODULES.md | ~150 | 8 | Resumo executivo |
-| MODULES_DOCUMENTATION.md | ~1000+ | 25+ | Documentação técnica |
-| DOCUMENTATION_GUIDE.md | ~400+ | 15+ | Guia de uso |
-| TRELLO_CARD_TEMPLATE.md | ~800+ | 20+ | Templates Trello |
-| PULL_REQUEST_TEMPLATE.md | ~200+ | 15+ | Template PR |
-| DEPLOY.md | ~300+ | 10+ | Guia de deploy |
+O sistema está pronto para deploy em plataformas cloud modernas. Suportamos:
 
-**Total:** ~3000+ linhas de documentação
+*   **Render** - Deploy simples com plano gratuito
+*   **Railway** - Deploy automático via Git
+*   **Northflank** - Plataforma robusta com containers
 
----
+### Deploy Rápido
 
-## 🔍 Busca Rápida
+1.  **Configure as variáveis de ambiente**:
+    *   `SECRET_KEY`: Chave secreta (gere com `python -c "import secrets; print(secrets.token_hex(32))"`)
+    *   `FLASK_ENV`: `production`
 
-### Procurando por...
+2.  **Configure volume persistente** para `/app/data` (para manter os dados JSON)
 
-#### "Como documentar uma função?"
-→ [MODULES_DOCUMENTATION.md](../MODULES_DOCUMENTATION.md) - Veja exemplos de docstrings
+3.  **Faça deploy** seguindo o guia detalhado: **[DEPLOY.md](DEPLOY.md)**
 
-#### "Como criar um card no Trello?"
-→ [TRELLO_CARD_TEMPLATE.md](../TRELLO_CARD_TEMPLATE.md) - Templates prontos
+### Teste Local com Docker
 
-#### "Como estruturar commits?"
-→ [MODULES_DOCUMENTATION.md](../MODULES_DOCUMENTATION.md) - Seção "Estrutura de Commits"
+```bash
+# Build e execute
+docker-compose up --build
 
-#### "Como fazer deploy?"
-→ [DEPLOY.md](../DEPLOY.md) - Guia completo
-
-#### "Como criar uma PR?"
-→ [PULL_REQUEST_TEMPLATE.md](../.github/PULL_REQUEST_TEMPLATE.md) - Template automático
-
-#### "Como começar a desenvolver?"
-→ [DOCUMENTATION_GUIDE.md](../DOCUMENTATION_GUIDE.md) - Fluxo de trabalho
-
----
-
-## 🎯 Fluxo de Leitura Recomendado
-
-### Para Novos no Projeto:
-```
-1. README.md (visão geral)
-   ↓
-2. README_MODULES.md (resumo dos módulos)
-   ↓
-3. DOCUMENTATION_GUIDE.md (como usar a documentação)
-   ↓
-4. MODULES_DOCUMENTATION.md (detalhes técnicos)
+# Acesse http://localhost:5000
 ```
 
-### Para Contribuir:
-```
-1. DOCUMENTATION_GUIDE.md (workflow)
-   ↓
-2. TRELLO_CARD_TEMPLATE.md (organizar tarefas)
-   ↓
-3. MODULES_DOCUMENTATION.md (estrutura de commits)
-   ↓
-4. PULL_REQUEST_TEMPLATE.md (criar PR)
+📖 **Guia Completo**: Veja [DEPLOY.md](DEPLOY.md) para instruções detalhadas de cada plataforma.
+
+---
+
+## 🖥️ Como Usar
+
+### Opção 1: Aplicação Web (Recomendado)
+
+Interface gráfica moderna, responsiva e com dashboards visuais.
+
+1.  Inicie o servidor:
+    ```bash
+    python app.py
+    ```
+2.  Acesse no navegador: `http://127.0.0.1:5000`
+3.  Faça login com as credenciais abaixo.
+
+### Opção 2: Interface de Terminal
+
+Interface rápida via linha de comando para operações diretas.
+
+1.  Execute o menu principal:
+    ```bash
+    python main.py
+    ```
+2.  Navegue pelos menus numéricos.
+
+---
+
+## 🔑 Credenciais de Acesso
+
+Para testes, utilize os seguintes usuários (Senha padrão: `123456`, exceto Admin/Presidente):
+
+| Cargo | Usuário | Senha | Acesso |
+| :--- | :--- | :--- | :--- |
+| **Admin** | `admin` | `admin123` | Total |
+| **Presidente** | `presidente` | `admin123` | Total |
+| **Dir. Operacional** | `dir_operacional` | `123456` | Operacional, Estoque |
+| **Dir. Financeiro** | `dir_financeira` | `123456` | Financeiro |
+| **Dir. RH** | `dir_rh` | `123456` | RH |
+| **Ger. Montagem** | `ger_montagem` | `123456` | Operacional |
+
+---
+
+## ✅ Testes Automatizados
+
+O projeto conta com uma suíte de testes robusta para garantir a estabilidade.
+
+Para rodar os testes do fluxo do terminal (incluindo cenários End-to-End):
+
+```bash
+python tests/test_terminal_flow.py
 ```
 
-### Para Deploy:
-```
-1. README.md (instalação local)
-   ↓
-2. DEPLOY.md (deploy em produção)
+Para rodar os testes da aplicação web:
+
+```bash
+python tests/test_app.py
 ```
 
 ---
 
-## 📝 Convenções de Documentação
+## 👨‍💻 Autor
 
-### Formato de Arquivos
-- **Markdown (.md)** para toda documentação
-- **Encoding UTF-8** obrigatório
-- **Line breaks** em 80-100 caracteres (quando possível)
-
-### Estrutura de Seções
-```markdown
-# Título Principal (H1)
-## Seção Principal (H2)
-### Subseção (H3)
-#### Detalhes (H4)
-```
-
-### Emojis Padrão
-- 📚 Documentação
-- 📖 README/Guia
-- 📋 Lista/Checklist
-- 🎴 Trello/Cards
-- 🚀 Deploy/PR
-- 💻 Código/Desenvolvimento
-- 🧪 Testes
-- 📊 Estatísticas/Dados
-- ⚙️ Configuração
-- 💡 Dica/Nota
-- ⚠️ Aviso
-- ✅ Concluído/Sucesso
-
----
-
-## 🔗 Links Externos
-
-### Ferramentas Recomendadas
-- [Trello](https://trello.com) - Gestão de tarefas
-- [GitHub](https://github.com) - Controle de versão
-- [Markdown Guide](https://www.markdownguide.org/) - Guia de Markdown
-
-### Plataformas de Deploy
-- [Render](https://render.com)
-- [Railway](https://railway.app)
-- [Northflank](https://northflank.com)
-
----
-
-## 🆘 Precisa de Ajuda?
-
-### Documentação Incompleta?
-Consulte [DOCUMENTATION_GUIDE.md](../DOCUMENTATION_GUIDE.md) - Seção "Troubleshooting"
-
-### Dúvidas sobre Módulos?
-Consulte [MODULES_DOCUMENTATION.md](../MODULES_DOCUMENTATION.md) - Documentação completa
-
-### Problemas com Deploy?
-Consulte [DEPLOY.md](../DEPLOY.md) - Troubleshooting
-
----
-
-## 📅 Manutenção da Documentação
-
-### Última Atualização
-**Data:** 2025-12-04  
-**Versão:** 1.0
-
-### Responsáveis
-- Documentação Técnica: Equipe de Desenvolvimento
-- Templates e Workflows: Equipe de Processos
-- Deploy: Equipe DevOps
-
-### Como Contribuir
-1. Identifique documentação desatualizada
-2. Crie uma issue descrevendo o problema
-3. Faça as alterações necessárias
-4. Abra uma PR usando o template padrão
-5. Solicite revisão
-
----
-
-**Navegação:**
-- [← Voltar ao README Principal](../README.md)
-- [📋 Ver Resumo dos Módulos](../README_MODULES.md)
-- [📖 Ver Guia de Documentação](../DOCUMENTATION_GUIDE.md)
+Desenvolvido por **Antigravity** (Google DeepMind) em colaboração com **Alexandre Junior**.
+Projeto focado em **Clean Code**, **Arquitetura Modular** e **Automação**.

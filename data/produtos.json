@@ -6,5 +6,77 @@
         "fornecedor": "teste",
         "quantidade": 3,
         "valor_compra": 3.0
+    },
+    {
+        "codigo": 2,
+        "nome": "Motor",
+        "data_fabricacao": "02/01/2024",
+        "fornecedor": "Ford",
+        "quantidade": 10,
+        "valor_compra": 5000.0
+    },
+    {
+        "codigo": 3,
+        "nome": "Volante",
+        "data_fabricacao": "03/01/2024",
+        "fornecedor": "Logitech",
+        "quantidade": 50,
+        "valor_compra": 150.0
+    },
+    {
+        "codigo": 4,
+        "nome": "Banco",
+        "data_fabricacao": "04/01/2024",
+        "fornecedor": "CouroBom",
+        "quantidade": 40,
+        "valor_compra": 300.0
+    },
+    {
+        "codigo": 5,
+        "nome": "Vidro",
+        "data_fabricacao": "05/01/2024",
+        "fornecedor": "Blindex",
+        "quantidade": 80,
+        "valor_compra": 100.0
+    },
+    {
+        "codigo": 6,
+        "nome": "Farol",
+        "data_fabricacao": "06/01/2024",
+        "fornecedor": "LuzMax",
+        "quantidade": 60,
+        "valor_compra": 80.0
+    },
+    {
+        "codigo": 7,
+        "nome": "Parachoque",
+        "data_fabricacao": "07/01/2024",
+        "fornecedor": "PlastCar",
+        "quantidade": 30,
+        "valor_compra": 250.0
+    },
+    {
+        "codigo": 8,
+        "nome": "Freio",
+        "data_fabricacao": "08/01/2024",
+        "fornecedor": "Brembo",
+        "quantidade": 100,
+        "valor_compra": 120.0
+    },
+    {
+        "codigo": 9,
+        "nome": "Embreagem",
+        "data_fabricacao": "09/01/2024",
+        "fornecedor": "Luk",
+        "quantidade": 20,
+        "valor_compra": 400.0
+    },
+    {
+        "codigo": 10,
+        "nome": "Radio",
+        "data_fabricacao": "10/01/2024",
+        "fornecedor": "Sony",
+        "quantidade": 50,
+        "valor_compra": 180.0
     }
 ]
