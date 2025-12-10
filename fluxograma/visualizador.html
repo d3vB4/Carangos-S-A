@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualizador de Fluxogramas - Carangos S/A</title>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'default' });
+    </script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 2rem;
+            background: #f4f6f9;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .diagram-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+        }
+
+        h2 {
+            color: #555;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .mermaid {
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Fluxogramas dos Módulos - Carangos S/A</h1>
+
+        <div class="diagram-card">
+            <h2>Módulo Operacional</h2>
+            <div class="mermaid">
+                graph TD
+                Start([Início]) --> Menu{Menu Operacional}
+
+                %% Cadastro de Produção
+                Menu -- 1. Registrar Produção --> LoopDias[Loop: 7 Dias da Semana]
+                LoopDias --> LoopTurnos["Loop: 3 Turnos (Manhã, Tarde, Noite)"]
+                LoopTurnos --> InputQtd[/"Input: Quantidade"/]
+                InputQtd --> Validar{"Quantidade >= 0?"}
+                Validar -- Não --> MsgErro[Exibir Erro] --> InputQtd
+                Validar -- Sim --> AddMem[Adicionar à Lista Temporária]
+                AddMem --> ProxTurno{Mais Turnos?}
+                ProxTurno -- Sim --> LoopTurnos
+                ProxTurno -- Não --> ProxDia{Mais Dias?}
+                ProxDia -- Sim --> LoopDias
+                ProxDia -- Não --> Salvar[Salvar em producao.json]
+                Salvar --> MsgSucesso[Exibir Sucesso] --> Menu
+
+                %% Relatório
+                Menu -- 2. Relatório --> LoadData[Carregar producao.json]
+                LoadData --> CalcStats[Calcular Estatísticas]
+                CalcStats --> CalcIdeal[Calcular/Solicitar Meta Ideal]
+                CalcIdeal --> ShowRel[Exibir Relatório Executivo]
+                ShowRel --> ShowInsights[Exibir Insights e Recomendações]
+                ShowInsights --> Menu
+
+                Menu -- 0. Voltar --> End([Fim])
+            </div>
+        </div>
+
+        <div class="diagram-card">
+            <h2>Módulo de Estoque</h2>
+            <div class="mermaid">
+                graph TD
+                Start([Início]) --> Menu{Menu Estoque}
+
+                %% Cadastrar Produto
+                Menu -- 1. Cadastrar Produto --> InputDados[/"Input: Dados do Produto"/]
+                InputDados --> LoadDB[Carregar produtos.json]
+                LoadDB --> CheckDuplicado{Código Existe?}
+                CheckDuplicado -- Sim --> MsgErro[Erro: Duplicado] --> Menu
+                CheckDuplicado -- Não --> SaveProd[Salvar Novo Produto]
+                SaveProd --> MsgSucesso[Sucesso] --> Menu
+
+                %% Buscar Produto
+                Menu -- 2. Buscar Produto --> InputBusca[/"Input: Termo de Busca"/]
+                InputBusca --> Filter[Filtrar Lista de Produtos]
+                Filter --> ShowResults[Exibir Resultados]
+                ShowResults --> Menu
+
+                %% Relatório Custos
+                Menu -- 3. Relatório Custos --> CalcCustos[Calcular Custos Totais]
+                CalcCustos --> ProjCustos[Projetar Custos Mensais/Anuais]
+                ProjCustos --> ShowRel[Exibir Relatório Financeiro de Estoque]
+                ShowRel --> Menu
+
+                Menu -- 0. Voltar --> End([Fim])
+            </div>
+        </div>
+
+        <div class="diagram-card">
+            <h2>Módulo Financeiro</h2>
+            <div class="mermaid">
+                graph TD
+                Start([Início]) --> Menu{Menu Financeiro}
+
+                %% Despesas Fixas
+                Menu -- 1. Despesas Fixas --> InputDesp[/"Input: Água, Luz, Salários, Impostos"/]
+                InputDesp --> SaveDesp[Salvar em despesas.json]
+                SaveDesp --> Menu
+
+                %% Relatório Financeiro
+                Menu -- 2. Relatório Geral --> LoadAll[Carregar Todos os Dados]
+                LoadAll --> CalcCustoProd["Calcular Custo Produção (Fixas + Insumos)"]
+                CalcCustoProd --> CalcCustoUnit[Calcular Custo Unitário]
+                CalcCustoUnit --> CalcPreco["Calcular Preço Venda (+50%)"]
+                CalcPreco --> ShowRel[Exibir Relatório Completo]
+                ShowRel --> Menu
+
+                %% Relatório Fábrica
+                Menu -- 3. Relatório Fábrica --> CheckFunc{Existem Funcionários?}
+                CheckFunc -- Não --> MsgErro[Erro: Cadastre RH] --> Menu
+                CheckFunc -- Sim --> CalcAgua["Calcular Custo Água (24h/30d)"]
+                CalcAgua --> CalcLuz["Calcular Custo Luz (Gerador + Rede)"]
+                CalcLuz --> CalcSalarios["Calcular Salários (RH Integration)"]
+                CalcSalarios --> ShowFabrica[Exibir Relatório Detalhado Fábrica]
+                ShowFabrica --> Menu
+
+                %% Indicadores
+                Menu -- 4. Indicadores --> CalcInd[Calcular Indicadores Avançados]
+                CalcInd --> CalcImpostos[Calcular CSLL e Lucro Líquido]
+                CalcImpostos --> ShowInd[Exibir Dashboard Financeiro]
+                ShowInd --> Menu
+
+                Menu -- 0. Voltar --> End([Fim])
+            </div>
+        </div>
+
+        <div class="diagram-card">
+            <h2>Módulo de RH</h2>
+            <div class="mermaid">
+                graph TD
+                Start([Início]) --> Menu{Menu RH}
+
+                %% Cadastrar
+                Menu -- 1. Cadastrar --> InputDados[/"Input: Dados Pessoais"/]
+                InputDados --> SelectSetor{Selecionar Setor}
+                SelectSetor --> SelectCargo{Selecionar Cargo}
+                SelectCargo --> GenMatricula[Gerar Matrícula Única]
+                GenMatricula --> SaveFunc[Salvar em funcionarios.json]
+                SaveFunc --> Menu
+
+                %% Listar
+                Menu -- 2. Listar --> LoadFunc[Carregar Funcionários]
+                LoadFunc --> ShowList[Exibir Lista]
+                ShowList --> Menu
+
+                %% Editar
+                Menu -- 3. Editar --> SelectFunc[/"Selecionar Funcionário"/]
+                SelectFunc --> EditFields[/"Editar Campos Permitidos"/]
+                EditFields --> SaveEdit[Salvar Alterações]
+                SaveEdit --> Menu
+
+                %% Deletar
+                Menu -- 4. Deletar --> SelectDel[/"Selecionar Funcionário"/]
+                SelectDel --> Confirm{Confirmar?}
+                Confirm -- Sim --> Remove[Remover do JSON]
+                Remove --> Menu
+                Confirm -- Não --> Menu
+
+                %% Folha
+                Menu -- 5. Folha Pagamento --> SelectScope{Setor ou Geral?}
+                SelectScope --> LoopFunc[Loop: Funcionários Selecionados]
+                LoopFunc --> InputHoras[/"Input: Horas Trab + Extras"/]
+                InputHoras --> CalcBruto[Calcular Bruto]
+                CalcBruto --> CalcExtra["Calcular Extras (Exceto Gerência)"]
+                CalcExtra --> CalcIRPF[Calcular IRPF]
+                CalcIRPF --> CalcLiq[Calcular Líquido]
+                CalcLiq --> ShowHolerite[Exibir Holerite]
+                ShowHolerite --> ProxFunc{Mais Funcionários?}
+                ProxFunc -- Sim --> LoopFunc
+                ProxFunc -- Não --> ShowTotal[Exibir Totais Gerais]
+                ShowTotal --> Menu
+
+                Menu -- 0. Voltar --> End([Fim])
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

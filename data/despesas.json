@@ -1,18 +1,22 @@
 [
     {
-        "tipo": "Agua",
-        "valor": 5001.0
-    },
-    {
-        "tipo": "Luz",
-        "valor": 185.0
-    },
-    {
-        "tipo": "Salarios",
-        "valor": 8000000.0
-    },
-    {
-        "tipo": "Impostos",
+        "descricao": "Aluguel da Fábrica",
         "valor": 50000.0
+    },
+    {
+        "descricao": "Energia Elétrica",
+        "valor": 25000.0
+    },
+    {
+        "descricao": "Água e Saneamento",
+        "valor": 8000.0
+    },
+    {
+        "descricao": "Manutenção Equipamentos",
+        "valor": 15000.0
+    },
+    {
+        "descricao": "Segurança e Limpeza",
+        "valor": 12000.0
     }
 ]

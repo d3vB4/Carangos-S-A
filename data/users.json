@@ -1,0 +1,17 @@
+[
+    {
+        "username": "admin",
+        "password": "scrypt:32768:8:1$3aqPyB6O0TJrwtlf$c1223e65906e125d55fada28f25bc28abe6bd25bb910c3834e30a76877b36417e6fd6bbbbccefceca575351b4d0de1f1da2a1258e1e4160d95ff2722135d84f1",
+        "role": "admin"
+    },
+    {
+        "username": "func_rh_test",
+        "password": "scrypt:32768:8:1$3rIYmX2TdJhFwDw0$d53e6af74e679121d739ffd5388c539b021f28a02c8312c447877f200848d38f937a6f7bf9dd116ca0019334e2f975cb0fffd1e30d10ff46945dc6be96a81adf",
+        "role": "func_rh"
+    },
+    {
+        "username": "func_op_test",
+        "password": "scrypt:32768:8:1$CzvCGflnuD8oL8iS$7f8ffac83f5cfb2f9357626c0610e655c5d5cb1cf366a7c2b0edba56c4552907c056e63a09fca9f285166eaa27c15e04d9e835ed7dec922248ec67a01f211860",
+        "role": "func_producao"
+    }
+]

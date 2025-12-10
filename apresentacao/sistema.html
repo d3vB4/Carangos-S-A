@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>O Sistema - Carangos S/A</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #1e293b;
+            --primary-color: #a78bfa;
+            --card-bg: #f8fafc;
+            --border-color: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #a78bfa 0%, #7c3aed 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .nav {
+            background: white;
+            padding: 1rem 2rem;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            margin-right: 2rem;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav a:hover {
+            color: var(--primary-color);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .section {
+            margin-bottom: 4rem;
+        }
+
+        .section h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .tech-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 16px;
+            border: 2px solid var(--border-color);
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .tech-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-color);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .tech-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .arch-diagram {
+            background: var(--card-bg);
+            padding: 3rem;
+            border-radius: 20px;
+            border: 2px solid var(--border-color);
+            margin-top: 2rem;
+        }
+
+        .layer {
+            background: white;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-radius: 12px;
+            border-left: 4px solid var(--primary-color);
+            box-shadow: var(--shadow);
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: var(--card-bg);
+            border-top: 1px solid var(--border-color);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <h1>⚙️ O Sistema</h1>
+        <p>Arquitetura, Tecnologias e Infraestrutura</p>
+    </div>
+
+    <div class="nav">
+        <a href="index.html"><i class="fas fa-home"></i> Início</a>
+        <a href="sobre.html"><i class="fas fa-info-circle"></i> Sobre</a>
+        <a href="beneficios.html"><i class="fas fa-star"></i> Benefícios</a>
+    </div>
+
+    <div class="container">
+        <div class="section">
+            <h2>Tecnologias Utilizadas</h2>
+            <div class="tech-grid">
+                <div class="tech-card">
+                    <i class="fab fa-python tech-icon"></i>
+                    <h3>Python 3.14</h3>
+                    <p>Backend robusto e escalável</p>
+                </div>
+                <div class="tech-card">
+                    <i class="fas fa-server tech-icon"></i>
+                    <h3>Flask</h3>
+                    <p>Framework web moderno</p>
+                </div>
+                <div class="tech-card">
+                    <i class="fas fa-database tech-icon"></i>
+                    <h3>JSON Storage</h3>
+                    <p>Persistência de dados eficiente</p>
+                </div>
+                <div class="tech-card">
+                    <i class="fas fa-terminal tech-icon"></i>
+                    <h3>CLI Interface</h3>
+                    <p>Terminal interativo com Rich</p>
+                </div>
+                <div class="tech-card">
+                    <i class="fas fa-globe tech-icon"></i>
+                    <h3>Web Dashboard</h3>
+                    <p>Interface web responsiva</p>
+                </div>
+                <div class="tech-card">
+                    <i class="fas fa-lock tech-icon"></i>
+                    <h3>Segurança</h3>
+                    <p>Autenticação e criptografia</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Arquitetura do Sistema</h2>
+            <div class="arch-diagram">
+                <div class="layer">
+                    <h3>🎨 Camada de Apresentação</h3>
+                    <p>Interface Web (Flask) + Terminal CLI (Rich)</p>
+                </div>
+                <div class="layer">
+                    <h3>⚙️ Camada de Negócios</h3>
+                    <p>Módulos: Operacional, Estoque, Financeiro, RH</p>
+                </div>
+                <div class="layer">
+                    <h3>💾 Camada de Dados</h3>
+                    <p>Data Manager + Persistência JSON</p>
+                </div>
+                <div class="layer">
+                    <h3>🔐 Camada de Segurança</h3>
+                    <p>Autenticação, Autorização, Criptografia</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Módulos do Sistema</h2>
+            <div class="tech-grid">
+                <div class="tech-card" style="border-color: #f59e0b;">
+                    <i class="fas fa-cogs tech-icon" style="color: #f59e0b;"></i>
+                    <h3>Operacional</h3>
+                    <p>Controle de produção, metas e relatórios</p>
+                </div>
+                <div class="tech-card" style="border-color: #ec4899;">
+                    <i class="fas fa-boxes tech-icon" style="color: #ec4899;"></i>
+                    <h3>Estoque</h3>
+                    <p>Gestão de produtos e custos</p>
+                </div>
+                <div class="tech-card" style="border-color: #10b981;">
+                    <i class="fas fa-chart-line tech-icon" style="color: #10b981;"></i>
+                    <h3>Financeiro</h3>
+                    <p>Indicadores e análises financeiras</p>
+                </div>
+                <div class="tech-card" style="border-color: #8b5cf6;">
+                    <i class="fas fa-users tech-icon" style="color: #8b5cf6;"></i>
+                    <h3>RH</h3>
+                    <p>Gestão de pessoas e folha</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Características Técnicas</h2>
+            <ul style="font-size: 1.1rem; color: #475569; line-height: 2;">
+                <li>✅ <strong>Modular:</strong> Arquitetura baseada em módulos independentes</li>
+                <li>✅ <strong>Escalável:</strong> Preparado para crescimento do negócio</li>
+                <li>✅ <strong>Seguro:</strong> Criptografia de senhas e controle de acesso</li>
+                <li>✅ <strong>Integrado:</strong> Comunicação entre todos os módulos</li>
+                <li>✅ <strong>Responsivo:</strong> Funciona em desktop, tablet e mobile</li>
+                <li>✅ <strong>Testado:</strong> Suite completa de testes automatizados</li>
+            </ul>
+        </div>
+    </div>
+
+    <footer>
+        <p><strong>© 2025 Carangos S/A</strong> - Sistema Integrado de Gestão</p>
+    </footer>
+</body>
+
+</html>

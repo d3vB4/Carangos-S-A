@@ -1,0 +1,26 @@
+graph TD
+    Start([Início]) --> Menu{Menu Operacional}
+    
+    %% Cadastro de Produção
+    Menu -- 1. Registrar Produção --> LoopDias[Loop: 7 Dias da Semana]
+    LoopDias --> LoopTurnos[Loop: 3 Turnos (Manhã, Tarde, Noite)]
+    LoopTurnos --> InputQtd[/Input: Quantidade/]
+    InputQtd --> Validar{Quantidade >= 0?}
+    Validar -- Não --> MsgErro[Exibir Erro] --> InputQtd
+    Validar -- Sim --> AddMem[Adicionar à Lista Temporária]
+    AddMem --> ProxTurno{Mais Turnos?}
+    ProxTurno -- Sim --> LoopTurnos
+    ProxTurno -- Não --> ProxDia{Mais Dias?}
+    ProxDia -- Sim --> LoopDias
+    ProxDia -- Não --> Salvar[Salvar em producao.json]
+    Salvar --> MsgSucesso[Exibir Sucesso] --> Menu
+
+    %% Relatório
+    Menu -- 2. Relatório --> LoadData[Carregar producao.json]
+    LoadData --> CalcStats[Calcular Estatísticas]
+    CalcStats --> CalcIdeal[Calcular/Solicitar Meta Ideal]
+    CalcIdeal --> ShowRel[Exibir Relatório Executivo]
+    ShowRel --> ShowInsights[Exibir Insights e Recomendações]
+    ShowInsights --> Menu
+
+    Menu -- 0. Voltar --> End([Fim])

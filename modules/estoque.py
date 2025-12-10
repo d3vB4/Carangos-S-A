@@ -1,7 +1,8 @@
 """
-Módulo: Estoque
-Descrição: Gerencia cadastro, busca e custos de produtos.
-Refatorado para integração com DataManager e MVC do main.py.
+# Nome do Aluno: [Lucas Mota]
+# Módulo: Estoque
+# Descrição: Gerencia cadastro, busca e custos de produtos.
+# Refatorado para integração com DataManager e MVC do main.py.
 """
 
 import json

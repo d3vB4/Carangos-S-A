@@ -303,6 +303,10 @@ def mod_financeiro():
     custo_unitario = financeiro.calcular_custo_por_carro(custo_total_producao, qtd_carros)
     preco_venda = financeiro.calcular_preco_venda(custo_unitario)
     
+    # Advanced Reports (Factory & Indicators)
+    relatorio_fabrica = financeiro.gerar_relatorio_fabrica()
+    indicadores = financeiro.calcular_indicadores_financeiros()
+    
     return render_template('modules/financeiro.html', 
                            despesas=despesas,
                            total_fixo=total_fixo,
@@ -310,7 +314,9 @@ def mod_financeiro():
                            custo_total_producao=custo_total_producao,
                            qtd_carros=qtd_carros,
                            custo_unitario=custo_unitario,
-                           preco_venda=preco_venda)
+                           preco_venda=preco_venda,
+                           relatorio_fabrica=relatorio_fabrica,
+                           indicadores=indicadores)
 
 @app.route('/rh', methods=['GET', 'POST'])
 @login_required
@@ -334,6 +340,13 @@ def mod_rh():
             if exists:
                 flash(f'Funcionário com CPF {cpf} já existe.', 'danger')
             else:
+                # Generate Matricula
+                # Need to import rh module functions properly or replicate logic? 
+                # Better to use rh.gerar_matricula if possible, but it requires 'setor'.
+                # We can infer sector from cargo or ask user. For now, let's infer or pass dummy.
+                setor = rh.obter_setor_funcionario(cargo) or "RH" # Fallback
+                matricula = rh.gerar_matricula(setor, cargo, funcionarios)
+                
                 funcionarios.append({
                     'nome': nome,
                     'cpf': cpf,
@@ -342,7 +355,9 @@ def mod_rh():
                     'telefone': telefone,
                     'qtd_filhos': qtd_filhos,
                     'cargo': cargo,
-                    'valor_hora': valor_hora
+                    'valor_hora': valor_hora,
+                    'matricula': matricula,
+                    'CTPS': 'N/A' # Default
                 })
                 data_manager.save_data('funcionarios.json', funcionarios)
                 flash(f'Funcionário {nome} cadastrado com sucesso!', 'success')
@@ -379,6 +394,42 @@ def mod_rh():
                            funcionarios=funcionarios,
                            folha=folha)
 
+@app.route('/rh/delete/<cpf>', methods=['POST'])
+@login_required
+@role_required(ROLES_RH)
+def rh_delete(cpf):
+    funcionarios = data_manager.load_data('funcionarios.json')
+    # Filter out the employee with the given CPF
+    new_funcionarios = [f for f in funcionarios if f['cpf'] != cpf]
+    
+    if len(new_funcionarios) < len(funcionarios):
+        data_manager.save_data('funcionarios.json', new_funcionarios)
+        flash('Funcionário removido com sucesso.', 'success')
+    else:
+        flash('Funcionário não encontrado.', 'danger')
+        
+    return redirect(url_for('mod_rh'))
+
+@app.route('/rh/edit/<cpf>', methods=['POST'])
+@login_required
+@role_required(ROLES_RH)
+def rh_edit(cpf):
+    funcionarios = data_manager.load_data('funcionarios.json')
+    funcionario = next((f for f in funcionarios if f['cpf'] == cpf), None)
+    
+    if funcionario:
+        funcionario['nome'] = request.form['nome']
+        funcionario['endereco'] = request.form['endereco']
+        funcionario['telefone'] = request.form['telefone']
+        # Note: Cargo/Setor changes might require re-generating matricula, skipping for simplicity as per CLI
+        
+        data_manager.save_data('funcionarios.json', funcionarios)
+        flash('Funcionário atualizado com sucesso.', 'success')
+    else:
+        flash('Funcionário não encontrado.', 'danger')
+        
+    return redirect(url_for('mod_rh'))
+
 @app.route('/terminal')
 @login_required
 def terminal():
@@ -408,26 +459,23 @@ def terminal_execute():
 
 <span class="text-success">CLI (Interface de Linha de Comando):</span>
   main                 - Menu principal do sistema CLI
-  main operacional     - Menu do módulo operacional
-  main estoque         - Menu do módulo de estoque
-  main financeiro      - Menu do módulo financeiro
-  main rh              - Menu do módulo de RH
+  main [modulo]        - Menu específico (ex: main rh)
 
 <span class="text-success">Operacional:</span>
   producao             - Mostra relatório de produção
-  
+
 <span class="text-success">Estoque:</span>
   estoque              - Mostra relatório de estoque
   produtos             - Lista todos os produtos
-  
+
 <span class="text-success">Financeiro:</span>
-  financeiro           - Mostra relatório financeiro
+  financeiro           - Mostra relatório financeiro completo
   despesas             - Lista despesas fixas
-  
+
 <span class="text-success">RH:</span>
-  rh                   - Mostra relatório de RH
+  rh                   - Mostra resumo do RH
   funcionarios         - Lista todos os funcionários
-  folha                - Mostra folha de pagamento
+  folha                - Mostra folha de pagamento simulada
 ''',
             'type': 'success'
         })
@@ -534,19 +582,35 @@ def terminal_execute():
         producao = data_manager.load_data('producao.json')
         qtd_carros = sum(row['quantidade'] for row in producao)
         
-        custo_total = financeiro.calcular_custo_producao(total_fixo, custo_insumos)
-        custo_unitario = financeiro.calcular_custo_por_carro(custo_total, qtd_carros) if qtd_carros > 0 else 0
+        custo_total_producao = financeiro.calcular_custo_producao(total_fixo, custo_insumos)
+        custo_unitario = financeiro.calcular_custo_por_carro(custo_total_producao, qtd_carros)
         preco_venda = financeiro.calcular_preco_venda(custo_unitario)
+        
+        relatorio_fabrica = financeiro.gerar_relatorio_fabrica()
+        indicadores = financeiro.calcular_indicadores_financeiros()
         
         output = f'''
 <span class="text-primary">═══ RELATÓRIO FINANCEIRO ═══</span>
 
-<span class="text-success">Despesas Fixas:</span> R$ {total_fixo:.2f}
-<span class="text-success">Custo Insumos:</span> R$ {custo_insumos:.2f}
-<span class="text-success">Custo Total Produção:</span> R$ {custo_total:.2f}
-<span class="text-success">Produção Total:</span> {qtd_carros} unidades
-<span class="text-success">Custo Unitário:</span> R$ {custo_unitario:.2f}
-<span class="text-success">Preço Venda Sugerido:</span> R$ {preco_venda:.2f}
+<span class="text-success">Custos:</span>
+  Fixo Total: R$ {total_fixo:.2f}
+  Insumos: R$ {custo_insumos:.2f}
+  Total Produção: R$ {custo_total_producao:.2f}
+
+<span class="text-success">Unitário & Venda:</span>
+  Carros Produzidos: {qtd_carros}
+  Custo Unitário: R$ {custo_unitario:.2f}
+  Preço Venda (+50%): R$ {preco_venda:.2f}
+
+<span class="text-info">Relatório Fábrica:</span>
+  Água: R$ {relatorio_fabrica['agua']['custo_total']:.2f}
+  Energia: R$ {relatorio_fabrica['energia']['custo_total']:.2f}
+  Salários (Bruto): R$ {relatorio_fabrica['salarios']['custo_total_bruto']:.2f}
+
+<span class="text-info">Indicadores:</span>
+  Lucro Bruto: R$ {indicadores['lucro_bruto']:.2f}
+  CSLL (9%): - R$ {indicadores['csll']:.2f}
+  Lucro Líquido: R$ {indicadores['lucro_liquido_final']:.2f}
 
 <span class="text-info">Despesas Detalhadas:</span>
 '''
@@ -555,19 +619,48 @@ def terminal_execute():
         
         return jsonify({'output': output, 'type': 'success'})
     
-    elif command == 'rh' or command == 'funcionarios' or command == 'folha':
+    elif command == 'rh':
         if user_role not in ROLES_RH:
             return jsonify({'output': '<span class="text-danger">Acesso negado! Você não tem permissão para este comando.</span>', 'type': 'error'})
         
         funcionarios = data_manager.load_data('funcionarios.json')
         
         output = f'''
-<span class="text-primary">═══ RELATÓRIO DE RH ═══</span>
+<span class="text-primary">═══ MÓDULO DE RH ═══</span>
 
 <span class="text-success">Total de Funcionários:</span> {len(funcionarios)}
 
-<span class="text-info">Funcionários:</span>
+<span class="text-info">Comandos Disponíveis:</span>
+  funcionarios   - Listar todos os funcionários
+  folha          - Ver folha de pagamento simulada
 '''
+        return jsonify({'output': output, 'type': 'success'})
+
+    elif command == 'funcionarios':
+        if user_role not in ROLES_RH:
+            return jsonify({'output': '<span class="text-danger">Acesso negado! Você não tem permissão para este comando.</span>', 'type': 'error'})
+            
+        funcionarios = data_manager.load_data('funcionarios.json')
+        funcionarios.sort(key=lambda x: x['nome'])
+        
+        output = f'''
+<span class="text-primary">═══ LISTA DE FUNCIONÁRIOS ═══</span>
+'''
+        for f in funcionarios:
+            output += f"  - {f['nome']} ({f['cargo']}) - CPF: {f['cpf']}\n"
+            
+        return jsonify({'output': output, 'type': 'success'})
+
+    elif command == 'folha':
+        if user_role not in ROLES_RH:
+            return jsonify({'output': '<span class="text-danger">Acesso negado! Você não tem permissão para este comando.</span>', 'type': 'error'})
+            
+        funcionarios = data_manager.load_data('funcionarios.json')
+        
+        output = f'''
+<span class="text-primary">═══ FOLHA DE PAGAMENTO (SIMULAÇÃO) ═══</span>
+'''
+        total_liquido = 0
         for f in funcionarios:
             # Simulação de cálculo
             horas_trab = 160
@@ -577,8 +670,11 @@ def terminal_execute():
             total_bruto = bruto + extra
             irpf = rh.calcular_irpf(total_bruto)
             liquido = rh.calcular_liquido(total_bruto, irpf)
+            total_liquido += liquido
             
-            output += f"  {f['nome']} ({f['cargo']}) - Líquido: R$ {liquido:.2f}\n"
+            output += f"  {f['nome']}: R$ {liquido:.2f}\n"
+        
+        output += f"\n<span class=\"text-success\">Total da Folha:</span> R$ {total_liquido:.2f}"
         
         return jsonify({'output': output, 'type': 'success'})
     

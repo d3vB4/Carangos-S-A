@@ -1,0 +1,44 @@
+graph TD
+    Start([Início]) --> Menu{Menu RH}
+
+    %% Cadastrar
+    Menu -- 1. Cadastrar --> InputDados[/Input: Dados Pessoais/]
+    InputDados --> SelectSetor{Selecionar Setor}
+    SelectSetor --> SelectCargo{Selecionar Cargo}
+    SelectCargo --> GenMatricula[Gerar Matrícula Única]
+    GenMatricula --> SaveFunc[Salvar em funcionarios.json]
+    SaveFunc --> Menu
+
+    %% Listar
+    Menu -- 2. Listar --> LoadFunc[Carregar Funcionários]
+    LoadFunc --> ShowList[Exibir Lista]
+    ShowList --> Menu
+
+    %% Editar
+    Menu -- 3. Editar --> SelectFunc[/Selecionar Funcionário/]
+    SelectFunc --> EditFields[/Editar Campos Permitidos/]
+    EditFields --> SaveEdit[Salvar Alterações]
+    SaveEdit --> Menu
+
+    %% Deletar
+    Menu -- 4. Deletar --> SelectDel[/Selecionar Funcionário/]
+    SelectDel --> Confirm{Confirmar?}
+    Confirm -- Sim --> Remove[Remover do JSON]
+    Remove --> Menu
+    Confirm -- Não --> Menu
+
+    %% Folha
+    Menu -- 5. Folha Pagamento --> SelectScope{Setor ou Geral?}
+    SelectScope --> LoopFunc[Loop: Funcionários Selecionados]
+    LoopFunc --> InputHoras[/Input: Horas Trab + Extras/]
+    InputHoras --> CalcBruto[Calcular Bruto]
+    CalcBruto --> CalcExtra[Calcular Extras (Exceto Gerência)]
+    CalcExtra --> CalcIRPF[Calcular IRPF]
+    CalcIRPF --> CalcLiq[Calcular Líquido]
+    CalcLiq --> ShowHolerite[Exibir Holerite]
+    ShowHolerite --> ProxFunc{Mais Funcionários?}
+    ProxFunc -- Sim --> LoopFunc
+    ProxFunc -- Não --> ShowTotal[Exibir Totais Gerais]
+    ShowTotal --> Menu
+
+    Menu -- 0. Voltar --> End([Fim])

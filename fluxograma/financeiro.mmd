@@ -1,0 +1,32 @@
+graph TD
+    Start([Início]) --> Menu{Menu Financeiro}
+
+    %% Despesas Fixas
+    Menu -- 1. Despesas Fixas --> InputDesp[/Input: Água, Luz, Salários, Impostos/]
+    InputDesp --> SaveDesp[Salvar em despesas.json]
+    SaveDesp --> Menu
+
+    %% Relatório Financeiro
+    Menu -- 2. Relatório Geral --> LoadAll[Carregar Todos os Dados]
+    LoadAll --> CalcCustoProd[Calcular Custo Produção (Fixas + Insumos)]
+    CalcCustoProd --> CalcCustoUnit[Calcular Custo Unitário]
+    CalcCustoUnit --> CalcPreco[Calcular Preço Venda (+50%)]
+    CalcPreco --> ShowRel[Exibir Relatório Completo]
+    ShowRel --> Menu
+
+    %% Relatório Fábrica
+    Menu -- 3. Relatório Fábrica --> CheckFunc{Existem Funcionários?}
+    CheckFunc -- Não --> MsgErro[Erro: Cadastre RH] --> Menu
+    CheckFunc -- Sim --> CalcAgua[Calcular Custo Água (24h/30d)]
+    CalcAgua --> CalcLuz[Calcular Custo Luz (Gerador + Rede)]
+    CalcLuz --> CalcSalarios[Calcular Salários (RH Integration)]
+    CalcSalarios --> ShowFabrica[Exibir Relatório Detalhado Fábrica]
+    ShowFabrica --> Menu
+
+    %% Indicadores
+    Menu -- 4. Indicadores --> CalcInd[Calcular Indicadores Avançados]
+    CalcInd --> CalcImpostos[Calcular CSLL e Lucro Líquido]
+    CalcImpostos --> ShowInd[Exibir Dashboard Financeiro]
+    ShowInd --> Menu
+
+    Menu -- 0. Voltar --> End([Fim])

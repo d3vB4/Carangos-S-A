@@ -1,28 +1,54 @@
 [
-  {
-    "nome": "Parafuso",
-    "cpf": "500",
-    "rg": "0.50",
-    "CTPS": "2",
-    "endereco": "Metalúrgica",
-    "telefone": "3",
-    "qtd_filhos": 0,
-    "cargo": "Auxiliar de Produção",
-    "valor_hora": 6.9,
-    "matricula": "110026",
-    "data_cadastro": "09/12/2025 22:03:38"
-  },
-  {
-    "nome": "Gustavo",
-    "cpf": "0678438734835",
-    "rg": "1231241245",
-    "CTPS": "12765342947394",
-    "endereco": "Cabula VI",
-    "telefone": "71932842353",
-    "qtd_filhos": 3,
-    "cargo": "Operador de Máquinas",
-    "valor_hora": 8.5,
-    "matricula": "120031",
-    "data_cadastro": "09/12/2025 22:12:57"
-  }
+    {
+        "nome": "João Silva",
+        "cpf": "123.456.789-00",
+        "rg": "12.345.678-9",
+        "CTPS": "12345",
+        "endereco": "Rua das Flores 123",
+        "telefone": "(11) 98765-4321",
+        "qtd_filhos": 2,
+        "cargo": "Operador de Máquinas",
+        "valor_hora": 8.5,
+        "matricula": "120015",
+        "data_cadastro": "10/12/2024 14:00:00"
+    },
+    {
+        "nome": "Maria Santos",
+        "cpf": "987.654.321-00",
+        "rg": "98.765.432-1",
+        "CTPS": "54321",
+        "endereco": "Av Principal 456",
+        "telefone": "(11) 91234-5678",
+        "qtd_filhos": 1,
+        "cargo": "Inspetor de Qualidade",
+        "valor_hora": 10.0,
+        "matricula": "130027",
+        "data_cadastro": "10/12/2024 14:05:00"
+    },
+    {
+        "nome": "Pedro Oliveira",
+        "cpf": "456.789.123-00",
+        "rg": "45.678.912-3",
+        "CTPS": "67890",
+        "endereco": "Rua Central 789",
+        "telefone": "(11) 95555-1234",
+        "qtd_filhos": 0,
+        "cargo": "Analista Financeiro",
+        "valor_hora": 12.5,
+        "matricula": "320013",
+        "data_cadastro": "10/12/2024 14:10:00"
+    },
+    {
+        "nome": "Ana Costa",
+        "cpf": "321.654.987-00",
+        "rg": "32.165.498-7",
+        "CTPS": "98765",
+        "endereco": "Rua Nova 321",
+        "telefone": "(11) 94444-9876",
+        "qtd_filhos": 3,
+        "cargo": "Analista de RH",
+        "valor_hora": 11.5,
+        "matricula": "420029",
+        "data_cadastro": "10/12/2024 14:15:00"
+    }
 ]

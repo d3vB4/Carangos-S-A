@@ -83,7 +83,49 @@
             </div>
         </div>
 
-        <div class="alert alert-warning">
+        <!-- Factory Report Section -->
+        {% if relatorio_fabrica %}
+        <div style="margin-top: 2rem; border-top: 1px solid var(--border-color); padding-top: 1rem;">
+            <h4 style="color: var(--text-secondary); margin-bottom: 1rem;">Relatório da Fábrica (Utilidades)</h4>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;">
+                <div class="kpi-card" style="background: rgba(59, 130, 246, 0.1); border-color: rgba(59, 130, 246, 0.2);">
+                    <div class="label">Água</div>
+                    <div class="value" style="color: #3B82F6;">R$ {{ "%.2f"|format(relatorio_fabrica['agua']['custo_total']) }}</div>
+                </div>
+                <div class="kpi-card" style="background: rgba(245, 158, 11, 0.1); border-color: rgba(245, 158, 11, 0.2);">
+                    <div class="label">Energia</div>
+                    <div class="value" style="color: #F59E0B;">R$ {{ "%.2f"|format(relatorio_fabrica['energia']['custo_total']) }}</div>
+                </div>
+                <div class="kpi-card" style="background: rgba(16, 185, 129, 0.1); border-color: rgba(16, 185, 129, 0.2);">
+                    <div class="label">Salários (Bruto)</div>
+                    <div class="value" style="color: #10B981;">R$ {{ "%.2f"|format(relatorio_fabrica['salarios']['custo_total_bruto']) }}</div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Financial Indicators Section -->
+        {% if indicadores %}
+        <div style="margin-top: 2rem; border-top: 1px solid var(--border-color); padding-top: 1rem;">
+            <h4 style="color: var(--text-secondary); margin-bottom: 1rem;">Indicadores Financeiros & Impostos</h4>
+            <table style="width: 100%; border-collapse: collapse;">
+                <tr style="border-bottom: 1px solid var(--border-color);">
+                    <td style="padding: 0.5rem 0;">Lucro Bruto</td>
+                    <td style="text-align: right; color: var(--success-color);">R$ {{ "%.2f"|format(indicadores['lucro_bruto']) }}</td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--border-color);">
+                    <td style="padding: 0.5rem 0;">CSLL (9%)</td>
+                    <td style="text-align: right; color: var(--danger-color);">- R$ {{ "%.2f"|format(indicadores['csll']) }}</td>
+                </tr>
+                <tr style="font-weight: bold; font-size: 1.1rem;">
+                    <td style="padding: 0.5rem 0;">Lucro Líquido Final</td>
+                    <td style="text-align: right; color: var(--success-color);">R$ {{ "%.2f"|format(indicadores['lucro_liquido_final']) }}</td>
+                </tr>
+            </table>
+        </div>
+        {% endif %}
+
+        <div class="alert alert-warning" style="margin-top: 1.5rem;">
             O custo unitário depende diretamente da quantidade produzida no Módulo Operacional e dos insumos no Estoque.
         </div>
     </div>
