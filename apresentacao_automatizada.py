@@ -119,7 +119,9 @@ class ApresentacaoCompletaAutomatizada:
             self.digitar(noite)
             self.pressionar_enter(self.delay_curto)
         
-        time.sleep(2)
+        # Pressionar Enter no "Pressione Enter para continuar..."
+        self.pressionar_enter(self.delay_medio)
+        time.sleep(1)
         
         # OPÇÃO 2: Ver Relatório de Produção
         console.print("\n[yellow]  📈 Opção 2: Ver Relatório de Produção[/yellow]")
@@ -127,6 +129,7 @@ class ApresentacaoCompletaAutomatizada:
         console.print("[cyan]    • Inserindo meta mensal: 750 carros[/cyan]")
         self.digitar('750')
         self.pressionar_enter(self.delay_longo)
+        # Pressionar Enter no "Pressione Enter para continuar..."
         self.pressionar_enter(self.delay_medio)
         
         # Voltar ao menu principal
@@ -156,6 +159,8 @@ class ApresentacaoCompletaAutomatizada:
         self.pressionar_enter(self.delay_curto)
         self.digitar('15000')  # Valor
         self.pressionar_enter(self.delay_longo)
+        # Pressionar Enter no "Pressione Enter para continuar..."
+        self.pressionar_enter(self.delay_medio)
         
         # OPÇÃO 2: Buscar Produto
         console.print("\n[yellow]  🔍 Opção 2: Buscar Produto[/yellow]")
@@ -163,11 +168,13 @@ class ApresentacaoCompletaAutomatizada:
         console.print("[cyan]    • Pesquisando por 'Motor'...[/cyan]")
         self.digitar('Motor')
         self.pressionar_enter(self.delay_longo)
+        # Pressionar Enter no "Pressione Enter para continuar..."
         self.pressionar_enter(self.delay_medio)
         
         # OPÇÃO 3: Ver Relatório de Custos
         console.print("\n[yellow]  💰 Opção 3: Ver Relatório de Custos[/yellow]")
         self.navegar_menu('3', 'Calcular Custos de Estoque', self.delay_longo)
+        # Pressionar Enter no "Pressione Enter para continuar..."
         self.pressionar_enter(self.delay_medio)
         
         # Voltar ao menu principal
@@ -184,25 +191,38 @@ class ApresentacaoCompletaAutomatizada:
         console.print("\n[yellow]  💸 Opção 1: Gerenciar Despesas Fixas[/yellow]")
         self.navegar_menu('1', 'Cadastrar Despesas Fixas', self.delay_curto)
         
-        console.print("[cyan]    • Cadastrando Aluguel da Fábrica...[/cyan]")
-        self.digitar('Aluguel da Fabrica')  # Descrição
+        console.print("[cyan]    • Digitando valores das despesas fixas...[/cyan]")
+        console.print("[cyan]      - Água: R$ 5000[/cyan]")
+        self.digitar('5000')  # Água
         self.pressionar_enter(self.delay_curto)
-        self.digitar('50000')  # Valor
+        console.print("[cyan]      - Luz: R$ 8000[/cyan]")
+        self.digitar('8000')  # Luz
+        self.pressionar_enter(self.delay_curto)
+        console.print("[cyan]      - Salários: R$ 50000[/cyan]")
+        self.digitar('50000')  # Salários
+        self.pressionar_enter(self.delay_curto)
+        console.print("[cyan]      - Impostos: R$ 12000[/cyan]")
+        self.digitar('12000')  # Impostos
         self.pressionar_enter(self.delay_longo)
+        # Pressionar Enter no "Pressione Enter para continuar..."
+        self.pressionar_enter(self.delay_medio)
         
         # OPÇÃO 2: Ver Relatório Financeiro
         console.print("\n[yellow]  📊 Opção 2: Ver Relatório Financeiro[/yellow]")
         self.navegar_menu('2', 'Visualizar Relatório Financeiro', self.delay_longo)
+        # Pressionar Enter no "Pressione Enter para continuar..."
         self.pressionar_enter(self.delay_medio)
         
         # OPÇÃO 3: Relatório Completo da Fábrica
         console.print("\n[yellow]  🏭 Opção 3: Relatório Completo da Fábrica (Água, Luz, Salários)[/yellow]")
         self.navegar_menu('3', 'Gerar Relatório Completo da Fábrica', self.delay_longo)
+        # Pressionar Enter no "Pressione Enter para continuar..."
         self.pressionar_enter(self.delay_medio)
         
         # OPÇÃO 4: Indicadores Financeiros
         console.print("\n[yellow]  📈 Opção 4: Indicadores Financeiros (Custo/Carro e Impostos)[/yellow]")
         self.navegar_menu('4', 'Calcular Indicadores Financeiros', self.delay_longo)
+        # Pressionar Enter no "Pressione Enter para continuar..."
         self.pressionar_enter(self.delay_medio)
         
         # Voltar ao menu principal
@@ -222,7 +242,7 @@ class ApresentacaoCompletaAutomatizada:
         console.print("[cyan]    • Cadastrando João Silva...[/cyan]")
         self.digitar('Joao Silva')  # Nome
         self.pressionar_enter(self.delay_curto)
-        self.digitar('Rua das Flores 123')  # Endereço
+        self.digitar('Rua das Flores')  # Endereço
         self.pressionar_enter(self.delay_curto)
         self.digitar('12345678900')  # CPF
         self.pressionar_enter(self.delay_curto)
@@ -238,10 +258,13 @@ class ApresentacaoCompletaAutomatizada:
         self.pressionar_enter(self.delay_curto)
         self.digitar('2')  # Cargo (Operador de Máquinas)
         self.pressionar_enter(self.delay_longo)
+        # Pressionar Enter no "Pressione Enter para continuar..."
+        self.pressionar_enter(self.delay_medio)
         
         # OPÇÃO 2: Listar Funcionários
         console.print("\n[yellow]  📋 Opção 2: Listar Funcionários[/yellow]")
         self.navegar_menu('2', 'Listar Todos os Funcionários', self.delay_longo)
+        # Pressionar Enter no "Pressione Enter para continuar..."
         self.pressionar_enter(self.delay_medio)
         
         # OPÇÃO 3: Editar Funcionário
@@ -255,6 +278,8 @@ class ApresentacaoCompletaAutomatizada:
         self.pressionar_enter(self.delay_curto)  # Endereço (deixar em branco)
         self.digitar('11999998888')  # Novo telefone
         self.pressionar_enter(self.delay_longo)
+        # Pressionar Enter no "Pressione Enter para continuar..."
+        self.pressionar_enter(self.delay_medio)
         
         # OPÇÃO 4: Deletar Funcionário (vamos cancelar)
         console.print("\n[yellow]  🗑️ Opção 4: Deletar Funcionário (cancelando)[/yellow]")
@@ -264,6 +289,8 @@ class ApresentacaoCompletaAutomatizada:
         self.pressionar_enter(self.delay_curto)
         console.print("[cyan]    • Cancelando exclusão (N)...[/cyan]")
         self.digitar('n')  # Não confirmar exclusão
+        self.pressionar_enter(self.delay_medio)
+        # Pressionar Enter no "Pressione Enter para continuar..."
         self.pressionar_enter(self.delay_medio)
         
         # OPÇÃO 5: Gerar Folha de Pagamento
@@ -281,6 +308,8 @@ class ApresentacaoCompletaAutomatizada:
         console.print("[cyan]    • Horas extras: 10[/cyan]")
         self.digitar('10')
         self.pressionar_enter(self.delay_longo)
+        # Pressionar Enter no "Pressione Enter para continuar..."
+        self.pressionar_enter(self.delay_medio)
         
         # Voltar ao menu principal
         self.navegar_menu('0', 'Retornando ao Menu Principal', self.delay_medio)
