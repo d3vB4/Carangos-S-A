@@ -1,25 +1,28 @@
 [
   {
-    "nome": "teste",
-    "cpf": "12345678901",
-    "rg": "12345678901",
-    "endereco": "rua teste",
-    "telefone": "7192324423",
-    "qtd_filhos": 2,
-    "cargo": "Gerente",
-    "valor_hora": 15.34
+    "nome": "Parafuso",
+    "cpf": "500",
+    "rg": "0.50",
+    "CTPS": "2",
+    "endereco": "Metalúrgica",
+    "telefone": "3",
+    "qtd_filhos": 0,
+    "cargo": "Auxiliar de Produção",
+    "valor_hora": 6.9,
+    "matricula": "110026",
+    "data_cadastro": "09/12/2025 22:03:38"
   },
   {
-    "nome": "admin",
-    "cpf": "5698548",
-    "rg": "698547",
-    "CTPS": "6985",
-    "endereco": "teste",
-    "telefone": "456321",
-    "qtd_filhos": 5,
-    "cargo": "Auxiliar de Estoque",
-    "valor_hora": 7.0,
-    "matricula": "210017",
-    "data_cadastro": "07/12/2025 22:07:28"
+    "nome": "Gustavo",
+    "cpf": "0678438734835",
+    "rg": "1231241245",
+    "CTPS": "12765342947394",
+    "endereco": "Cabula VI",
+    "telefone": "71932842353",
+    "qtd_filhos": 3,
+    "cargo": "Operador de Máquinas",
+    "valor_hora": 8.5,
+    "matricula": "120031",
+    "data_cadastro": "09/12/2025 22:12:57"
   }
 ]

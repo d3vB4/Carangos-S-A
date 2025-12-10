@@ -1,143 +1,86 @@
 """
-Aluno: Lucas Freire MotaSistema de entrada e saída de produtos usando listas e dicionários.
+Módulo: Estoque
+Descrição: Gerencia cadastro, busca e custos de produtos.
+Refatorado para integração com DataManager e MVC do main.py.
 """
 
-# LISTA GLOBAL DE PRODUTOS NO ESTOQUE
-estoque = []
+import json
+import os
 
-# LISTA DE PEDIDOS REALIZADOS (SAÍDA)
-pedidos = []
+try:
+    from modules import data_manager
+except ImportError:
+    import data_manager
 
+FILE_NAME = 'produtos.json'
 
-# -------------------------------------------------------------------
-# FUNÇÃO: Verificar se o produto já existe (por código ou nome)
-# -------------------------------------------------------------------
-def produto_existe(codigo, nome):
-    for item in estoque:
-        if item["codigo"] == codigo or item["nome"].lower() == nome.lower():
-            return item
-    return None
+def cadastrar_produto(codigo, nome, data_fab, fornecedor, quantidade, valor_compra):
+    """
+    Cadastra um novo produto no sistema.
+    Argumentos recebidos do main.py.
+    """
+    print(f"\n--- Processando Cadastro: {nome} ---")
+    
+    produtos = data_manager.load_data(FILE_NAME)
+    
+    # Verifica duplicidade por código
+    for p in produtos:
+        if str(p['codigo']) == str(codigo):
+            print(f"Erro: Produto com código {codigo} já existe!")
+            return False
 
-
-# -------------------------------------------------------------------
-# FUNÇÃO: Entrada de Produtos (cadastrar 10 produtos)
-# -------------------------------------------------------------------
-def entrada_produtos():
-    print("\n=== ENTRADA DE PRODUTOS ===")
-
-    for i in range(10):
-        print(f"\nCadastro {i+1}/10")
-
-        codigo = input("Código do produto: ")
-        nome = input("Nome do produto: ")
-
-        # Verifica duplicidade
-        existente = produto_existe(codigo, nome)
-        if existente:
-            print("Produto já cadastrado. Quantidade será atualizada.")
-            qtd = int(input("Quantidade a adicionar: "))
-            existente["quantidade"] += qtd
-            continue
-
-        # Dados do novo produto
-        data_fabricacao = input("Data de fabricação: ")
-        fornecedor = input("Fornecedor: ")
-        quantidade = int(input("Quantidade inicial: "))
-        local = input("Local no estoque: ")
-        valor_unitario = float(input("Valor unitário (R$): "))
-
-        produto = {
-            "codigo": codigo,
-            "nome": nome,
-            "data_fabricacao": data_fabricacao,
-            "fornecedor": fornecedor,
-            "quantidade": quantidade,
-            "local": local,
-            "valor_unitario": valor_unitario
-        }
-
-        estoque.append(produto)
+    novo_produto = {
+        "codigo": codigo,
+        "nome": nome,
+        "data_fabricacao": data_fab,
+        "fornecedor": fornecedor,
+        "quantidade": quantidade,
+        "valor_compra": valor_compra,
+        # Campos extras calculados ou padrão
+        "valor_total": quantidade * valor_compra
+    }
+    
+    produtos.append(novo_produto)
+    
+    if data_manager.save_data(FILE_NAME, produtos):
         print("Produto cadastrado com sucesso!")
+        return True
+    else:
+        print("Erro ao salvar produto.")
+        return False
 
+def pesquisar_produto(termo):
+    """
+    Pesquisa produtos por nome ou código.
+    Retorna uma lista de dicionários encontrados.
+    """
+    produtos = data_manager.load_data(FILE_NAME)
+    resultados = []
+    
+    termo = str(termo).lower()
+    
+    for p in produtos:
+        if termo in str(p['codigo']).lower() or termo in p['nome'].lower():
+            resultados.append(p)
+            
+    return resultados
 
-# -------------------------------------------------------------------
-# FUNÇÃO: Saída de Produtos (até 10 pedidos)
-# -------------------------------------------------------------------
-def saida_produtos():
-    print("\n=== SAÍDA DE PRODUTOS ===")
-
-    for i in range(10):
-        print(f"\nPedido {i+1}/10")
-
-        cod_pedido = input("Código do pedido: ")
-        nome_prod = input("Nome do produto solicitado: ")
-        cliente = input("Nome do cliente: ")
-        qtd_solicitada = int(input("Quantidade solicitada: "))
-
-        # Buscar produto no estoque
-        produto = None
-        for item in estoque:
-            if item["nome"].lower() == nome_prod.lower():
-                produto = item
-                break
-
-        if not produto:
-            print("Produto não encontrado no estoque!")
-            continue
-
-        # Verificar quantidade disponível
-        if produto["quantidade"] <= 0:
-            print("Produto sem estoque!")
-            continue
-
-        # Verificar se quantidade é suficiente
-        if qtd_solicitada > produto["quantidade"]:
-            print("Estoque insuficiente! Pedido parcialmente atendido.")
-            qtd_atendida = produto["quantidade"]
-        else:
-            qtd_atendida = qtd_solicitada
-
-        # Atualizar estoque
-        produto["quantidade"] -= qtd_atendida
-
-        total = qtd_atendida * produto["valor_unitario"]
-
-        # Registrar pedido
-        pedido = {
-            "codigo_pedido": cod_pedido,
-            "cliente": cliente,
-            "produto": produto["nome"],
-            "quantidade": qtd_atendida,
-            "total": total
-        }
-
-        pedidos.append(pedido)
-
-        print(f"Pedido registrado! Quantidade atendida: {qtd_atendida}")
-
-
-# -------------------------------------------------------------------
-# Relatório final somente do estoque e pedidos
-# -------------------------------------------------------------------
-def relatorio():
-    print("\n=== RELATÓRIO FINAL ===")
-
-    print("\n--- ESTOQUE (ORDENADO POR NOME) ---")
-    lista_ordenada = sorted(estoque, key=lambda x: x["nome"].lower())
-
-    for p in lista_ordenada:
-        print("------------------------")
-        print(f"Produto: {p['nome']}")
-        print(f"Código: {p['codigo']}")
-        print(f"Quantidade: {p['quantidade']}")
-        print(f"Local: {p['local']}")
-        print(f"Valor Unitário: R$ {p['valor_unitario']:.2f}")
-
-    print("\n--- PEDIDOS REALIZADOS ---")
-    for ped in pedidos:
-        print("------------------------")
-        print(f"Pedido: {ped['codigo_pedido']}")
-        print(f"Cliente: {ped['cliente']}")
-        print(f"Produto: {ped['produto']}")
-        print(f"Quantidade: {ped['quantidade']}")
-        print(f"Total: R$ {ped['total']:.2f}")
+def calcular_custos(produtos=None):
+    """
+    Calcula custos totais e projeções.
+    Se produtos for None, carrega do arquivo.
+    """
+    if produtos is None:
+        produtos = data_manager.load_data(FILE_NAME)
+        
+    total_atual = sum(p['quantidade'] * p['valor_compra'] for p in produtos)
+    
+    # Lógica simples de projeção (Exemplo: Manutenção custa 10% a.m do valor do estoque)
+    mensal_projetado = total_atual * 0.10
+    anual_projetado = mensal_projetado * 12
+    
+    return {
+        "total_atual": total_atual,
+        "mensal_projetado": mensal_projetado,
+        "anual_projetado": anual_projetado
+    }
