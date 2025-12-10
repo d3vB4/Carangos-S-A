@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo Operacional - Carangos S/A</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #1e293b;
+            --primary-color: #f59e0b;
+            --card-bg: #f8fafc;
+            --border-color: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .nav {
+            background: white;
+            padding: 1rem 2rem;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            margin-right: 2rem;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav a:hover {
+            color: var(--primary-color);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 16px;
+            border: 2px solid var(--border-color);
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-color);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+        }
+
+        .feature-card p {
+            color: #64748b;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: var(--card-bg);
+            border-top: 1px solid var(--border-color);
+            margin-top: 4rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <h1>⚙️ Módulo Operacional</h1>
+        <p>Controle de Produção e Eficiência Fabril</p>
+    </div>
+
+    <div class="nav">
+        <a href="index.html"><i class="fas fa-home"></i> Início</a>
+        <a href="estoque.html"><i class="fas fa-boxes"></i> Estoque</a>
+        <a href="financeiro.html"><i class="fas fa-chart-line"></i> Financeiro</a>
+        <a href="rh.html"><i class="fas fa-users"></i> RH</a>
+    </div>
+
+    <div class="container">
+        <h2 style="font-size: 2rem; margin-bottom: 1.5rem; color: var(--primary-color);">Funcionalidades</h2>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <i class="fas fa-clipboard-list feature-icon"></i>
+                <h3>Registro de Produção</h3>
+                <p>Cadastre a produção semanal por dia e turno (Manhã, Tarde, Noite)</p>
+            </div>
+
+            <div class="feature-card">
+                <i class="fas fa-chart-bar feature-icon"></i>
+                <h3>Estatísticas em Tempo Real</h3>
+                <p>Visualize total semanal, média diária e média por turno automaticamente</p>
+            </div>
+
+            <div class="feature-card">
+                <i class="fas fa-bullseye feature-icon"></i>
+                <h3>Cálculo de Capacidade Ideal</h3>
+                <p>Defina metas mensais e veja a capacidade semanal e anual necessária</p>
+            </div>
+
+            <div class="feature-card">
+                <i class="fas fa-file-alt feature-icon"></i>
+                <h3>Relatórios Detalhados</h3>
+                <p>Gere relatórios completos com análise de eficiência e produtividade</p>
+            </div>
+
+            <div class="feature-card">
+                <i class="fas fa-calendar-week feature-icon"></i>
+                <h3>Controle Semanal</h3>
+                <p>Acompanhe a produção de segunda a domingo em todos os turnos</p>
+            </div>
+
+            <div class="feature-card">
+                <i class="fas fa-tachometer-alt feature-icon"></i>
+                <h3>Indicadores de Performance</h3>
+                <p>Monitore KPIs e identifique oportunidades de melhoria</p>
+            </div>
+        </div>
+
+        <div
+            style="margin-top: 4rem; padding: 3rem; background: var(--card-bg); border-radius: 20px; border: 2px solid var(--border-color);">
+            <h2 style="color: var(--primary-color); margin-bottom: 2rem;">📊 Fluxograma do Módulo Operacional</h2>
+            <div class="mermaid" style="background: white; padding: 2rem; border-radius: 12px;">
+                flowchart TD
+                A[🏁 Início] --> B[📝 Registrar Produção]
+                B --> C{7 Dias?}
+                C -->|Sim| D[📅 Segunda]
+                D --> E[📅 Terça]
+                E --> F[📅 Quarta]
+                F --> G[📅 Quinta]
+                G --> H[📅 Sexta]
+                H --> I[📅 Sábado]
+                I --> J[📅 Domingo]
+                J --> K[💾 Salvar]
+                C -->|Não| K
+                K --> L[📊 Calcular]
+                L --> M[📈 Total]
+                L --> N[📉 Média]
+                M --> P[🎯 Meta]
+                N --> P
+                P --> Q[📋 Relatório]
+                Q --> R[✅ Fim]
+
+                style A fill:#f59e0b,stroke:#d97706,stroke-width:3px,color:#fff
+                style R fill:#10b981,stroke:#059669,stroke-width:3px,color:#fff
+                style K fill:#3b82f6,stroke:#2563eb,stroke-width:2px,color:#fff
+            </div>
+        </div>
+
+        <div
+            style="margin-top: 3rem; padding: 3rem; background: var(--card-bg); border-radius: 20px; border: 2px solid var(--border-color);">
+            <h2 style="color: var(--primary-color); margin-bottom: 1rem;">Como Funciona?</h2>
+            <ol style="font-size: 1.1rem; color: #475569; line-height: 2; padding-left: 1.5rem;">
+                <li><strong>Cadastre a Produção:</strong> Insira os dados de produção para cada dia da semana</li>
+                <li><strong>Visualize Estatísticas:</strong> O sistema calcula automaticamente totais e médias</li>
+                <li><strong>Defina Metas:</strong> Configure metas mensais para orientar a produção</li>
+                <li><strong>Gere Relatórios:</strong> Analise o desempenho e tome decisões estratégicas</li>
+            </ol>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+                curve: 'basis'
+            }
+        });
+    </script>
+
+    <footer>
+        <p><strong>© 2025 Carangos S/A</strong> - Sistema Integrado de Gestão</p>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,24 @@
+graph TD
+    Start([Início]) --> Menu{Menu Estoque}
+
+    %% Cadastrar Produto
+    Menu -- 1. Cadastrar Produto --> InputDados[/Input: Dados do Produto/]
+    InputDados --> LoadDB[Carregar produtos.json]
+    LoadDB --> CheckDuplicado{Código Existe?}
+    CheckDuplicado -- Sim --> MsgErro[Erro: Duplicado] --> Menu
+    CheckDuplicado -- Não --> SaveProd[Salvar Novo Produto]
+    SaveProd --> MsgSucesso[Sucesso] --> Menu
+
+    %% Buscar Produto
+    Menu -- 2. Buscar Produto --> InputBusca[/Input: Termo de Busca/]
+    InputBusca --> Filter[Filtrar Lista de Produtos]
+    Filter --> ShowResults[Exibir Resultados]
+    ShowResults --> Menu
+
+    %% Relatório Custos
+    Menu -- 3. Relatório Custos --> CalcCustos[Calcular Custos Totais]
+    CalcCustos --> ProjCustos[Projetar Custos Mensais/Anuais]
+    ProjCustos --> ShowRel[Exibir Relatório Financeiro de Estoque]
+    ShowRel --> Menu
+
+    Menu -- 0. Voltar --> End([Fim])

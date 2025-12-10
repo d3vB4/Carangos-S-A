@@ -1,20 +1,43 @@
 [
     {
-        "codigo": 101,
-        "nome": "Parafuso",
-        "data_fabricacao": "01/01/2024",
-        "fornecedor": "Metalúrgica",
-        "quantidade": 500,
-        "valor_compra": 0.5,
-        "valor_total": 250.0
+        "codigo": 1001,
+        "nome": "Motor V8 Turbo",
+        "data_fabricacao": "01/12/2024",
+        "fornecedor": "MotorTech Ltda",
+        "quantidade": 50,
+        "valor_compra": 15000.0
     },
     {
-        "codigo": 50,
-        "nome": "prego",
-        "data_fabricacao": "25/06/2028",
-        "fornecedor": "Carangos",
-        "quantidade": 56,
-        "valor_compra": 89.0,
-        "valor_total": 4984.0
+        "codigo": 1002,
+        "nome": "Chassi Reforçado",
+        "data_fabricacao": "05/12/2024",
+        "fornecedor": "MetalForte S/A",
+        "quantidade": 100,
+        "valor_compra": 8000.0
+    },
+    {
+        "codigo": 1003,
+        "nome": "Sistema de Freios ABS",
+        "data_fabricacao": "08/12/2024",
+        "fornecedor": "SafeDrive Inc",
+        "quantidade": 75,
+        "valor_compra": 3500.0
+    },
+    {
+        "codigo": 1004,
+        "nome": "Painel Digital Premium",
+        "data_fabricacao": "10/12/2024",
+        "fornecedor": "TechAuto Brasil",
+        "quantidade": 60,
+        "valor_compra": 2800.0
+    },
+    {
+        "codigo": 3,
+        "nome": "4",
+        "data_fabricacao": "",
+        "fornecedor": "0",
+        "quantidade": 4,
+        "valor_compra": 2.0,
+        "valor_total": 8.0
     }
 ]

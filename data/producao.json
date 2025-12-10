@@ -2,211 +2,316 @@
     {
         "dia": "Segunda",
         "turno": "Manhã",
-        "quantidade": 100
+        "quantidade": 25
     },
     {
         "dia": "Segunda",
         "turno": "Tarde",
-        "quantidade": 100
+        "quantidade": 30
     },
     {
         "dia": "Segunda",
         "turno": "Noite",
-        "quantidade": 100
+        "quantidade": 22
     },
     {
         "dia": "Terça",
         "turno": "Manhã",
-        "quantidade": 100
+        "quantidade": 28
     },
     {
         "dia": "Terça",
         "turno": "Tarde",
-        "quantidade": 100
+        "quantidade": 32
     },
     {
         "dia": "Terça",
         "turno": "Noite",
-        "quantidade": 100
+        "quantidade": 24
     },
     {
         "dia": "Quarta",
         "turno": "Manhã",
-        "quantidade": 100
-    },
-    {
-        "dia": "Quarta",
-        "turno": "Tarde",
-        "quantidade": 100
-    },
-    {
-        "dia": "Quarta",
-        "turno": "Noite",
-        "quantidade": 100
-    },
-    {
-        "dia": "Quinta",
-        "turno": "Manhã",
-        "quantidade": 100
-    },
-    {
-        "dia": "Quinta",
-        "turno": "Tarde",
-        "quantidade": 100
-    },
-    {
-        "dia": "Quinta",
-        "turno": "Noite",
-        "quantidade": 100
-    },
-    {
-        "dia": "Sexta",
-        "turno": "Manhã",
-        "quantidade": 100
-    },
-    {
-        "dia": "Sexta",
-        "turno": "Tarde",
-        "quantidade": 100
-    },
-    {
-        "dia": "Sexta",
-        "turno": "Noite",
-        "quantidade": 100
-    },
-    {
-        "dia": "Sábado",
-        "turno": "Manhã",
-        "quantidade": 100
-    },
-    {
-        "dia": "Sábado",
-        "turno": "Tarde",
-        "quantidade": 100
-    },
-    {
-        "dia": "Sábado",
-        "turno": "Noite",
-        "quantidade": 100
-    },
-    {
-        "dia": "Domingo",
-        "turno": "Manhã",
-        "quantidade": 100
-    },
-    {
-        "dia": "Domingo",
-        "turno": "Tarde",
-        "quantidade": 100
-    },
-    {
-        "dia": "Domingo",
-        "turno": "Noite",
-        "quantidade": 100
-    },
-    {
-        "dia": "Segunda",
-        "turno": "Manhã",
-        "quantidade": 5
-    },
-    {
-        "dia": "Segunda",
-        "turno": "Tarde",
-        "quantidade": 5
-    },
-    {
-        "dia": "Segunda",
-        "turno": "Noite",
-        "quantidade": 6
-    },
-    {
-        "dia": "Terça",
-        "turno": "Manhã",
-        "quantidade": 125
-    },
-    {
-        "dia": "Terça",
-        "turno": "Tarde",
-        "quantidade": 52
-    },
-    {
-        "dia": "Terça",
-        "turno": "Noite",
-        "quantidade": 36
-    },
-    {
-        "dia": "Quarta",
-        "turno": "Manhã",
-        "quantidade": 36
-    },
-    {
-        "dia": "Quarta",
-        "turno": "Tarde",
         "quantidade": 26
     },
     {
         "dia": "Quarta",
+        "turno": "Tarde",
+        "quantidade": 31
+    },
+    {
+        "dia": "Quarta",
         "turno": "Noite",
-        "quantidade": 65
+        "quantidade": 23
     },
     {
         "dia": "Quinta",
         "turno": "Manhã",
-        "quantidade": 16
+        "quantidade": 27
     },
     {
         "dia": "Quinta",
         "turno": "Tarde",
-        "quantidade": 185
+        "quantidade": 33
     },
     {
         "dia": "Quinta",
         "turno": "Noite",
-        "quantidade": 156
+        "quantidade": 25
     },
     {
         "dia": "Sexta",
         "turno": "Manhã",
-        "quantidade": 16
+        "quantidade": 29
     },
     {
         "dia": "Sexta",
         "turno": "Tarde",
-        "quantidade": 169
+        "quantidade": 34
     },
     {
         "dia": "Sexta",
         "turno": "Noite",
-        "quantidade": 169
+        "quantidade": 26
     },
     {
         "dia": "Sábado",
         "turno": "Manhã",
-        "quantidade": 18
+        "quantidade": 20
     },
     {
         "dia": "Sábado",
         "turno": "Tarde",
-        "quantidade": 189
+        "quantidade": 18
     },
     {
         "dia": "Sábado",
         "turno": "Noite",
-        "quantidade": 18
+        "quantidade": 15
     },
     {
         "dia": "Domingo",
         "turno": "Manhã",
-        "quantidade": 18
+        "quantidade": 10
     },
     {
         "dia": "Domingo",
         "turno": "Tarde",
-        "quantidade": 48
+        "quantidade": 8
     },
     {
         "dia": "Domingo",
         "turno": "Noite",
+        "quantidade": 5
+    },
+    {
+        "dia": "Segunda",
+        "turno": "Manhã",
+        "quantidade": 25
+    },
+    {
+        "dia": "Segunda",
+        "turno": "Tarde",
+        "quantidade": 30
+    },
+    {
+        "dia": "Segunda",
+        "turno": "Noite",
+        "quantidade": 22
+    },
+    {
+        "dia": "Terça",
+        "turno": "Manhã",
+        "quantidade": 28
+    },
+    {
+        "dia": "Terça",
+        "turno": "Tarde",
+        "quantidade": 32
+    },
+    {
+        "dia": "Terça",
+        "turno": "Noite",
+        "quantidade": 24
+    },
+    {
+        "dia": "Quarta",
+        "turno": "Manhã",
+        "quantidade": 26
+    },
+    {
+        "dia": "Quarta",
+        "turno": "Tarde",
+        "quantidade": 31
+    },
+    {
+        "dia": "Quarta",
+        "turno": "Noite",
+        "quantidade": 23
+    },
+    {
+        "dia": "Quinta",
+        "turno": "Manhã",
+        "quantidade": 27
+    },
+    {
+        "dia": "Quinta",
+        "turno": "Tarde",
+        "quantidade": 33
+    },
+    {
+        "dia": "Quinta",
+        "turno": "Noite",
+        "quantidade": 25
+    },
+    {
+        "dia": "Sexta",
+        "turno": "Manhã",
+        "quantidade": 29
+    },
+    {
+        "dia": "Sexta",
+        "turno": "Tarde",
+        "quantidade": 34
+    },
+    {
+        "dia": "Sexta",
+        "turno": "Noite",
+        "quantidade": 26
+    },
+    {
+        "dia": "Sábado",
+        "turno": "Manhã",
+        "quantidade": 20
+    },
+    {
+        "dia": "Sábado",
+        "turno": "Tarde",
         "quantidade": 18
+    },
+    {
+        "dia": "Sábado",
+        "turno": "Noite",
+        "quantidade": 15
+    },
+    {
+        "dia": "Domingo",
+        "turno": "Manhã",
+        "quantidade": 10
+    },
+    {
+        "dia": "Domingo",
+        "turno": "Tarde",
+        "quantidade": 8
+    },
+    {
+        "dia": "Domingo",
+        "turno": "Noite",
+        "quantidade": 5
+    },
+    {
+        "dia": "Segunda",
+        "turno": "Manhã",
+        "quantidade": 25
+    },
+    {
+        "dia": "Segunda",
+        "turno": "Tarde",
+        "quantidade": 30
+    },
+    {
+        "dia": "Segunda",
+        "turno": "Noite",
+        "quantidade": 22
+    },
+    {
+        "dia": "Terça",
+        "turno": "Manhã",
+        "quantidade": 28
+    },
+    {
+        "dia": "Terça",
+        "turno": "Tarde",
+        "quantidade": 32
+    },
+    {
+        "dia": "Terça",
+        "turno": "Noite",
+        "quantidade": 24
+    },
+    {
+        "dia": "Quarta",
+        "turno": "Manhã",
+        "quantidade": 26
+    },
+    {
+        "dia": "Quarta",
+        "turno": "Tarde",
+        "quantidade": 31
+    },
+    {
+        "dia": "Quarta",
+        "turno": "Noite",
+        "quantidade": 23
+    },
+    {
+        "dia": "Quinta",
+        "turno": "Manhã",
+        "quantidade": 27
+    },
+    {
+        "dia": "Quinta",
+        "turno": "Tarde",
+        "quantidade": 33
+    },
+    {
+        "dia": "Quinta",
+        "turno": "Noite",
+        "quantidade": 25
+    },
+    {
+        "dia": "Sexta",
+        "turno": "Manhã",
+        "quantidade": 29
+    },
+    {
+        "dia": "Sexta",
+        "turno": "Tarde",
+        "quantidade": 34
+    },
+    {
+        "dia": "Sexta",
+        "turno": "Noite",
+        "quantidade": 26
+    },
+    {
+        "dia": "Sábado",
+        "turno": "Manhã",
+        "quantidade": 20
+    },
+    {
+        "dia": "Sábado",
+        "turno": "Tarde",
+        "quantidade": 18
+    },
+    {
+        "dia": "Sábado",
+        "turno": "Noite",
+        "quantidade": 15
+    },
+    {
+        "dia": "Domingo",
+        "turno": "Manhã",
+        "quantidade": 10
+    },
+    {
+        "dia": "Domingo",
+        "turno": "Tarde",
+        "quantidade": 8
+    },
+    {
+        "dia": "Domingo",
+        "turno": "Noite",
+        "quantidade": 5
     }
 ]

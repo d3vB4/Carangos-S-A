@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Benefícios - Carangos S/A</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #1e293b;
+            --primary-color: #34d399;
+            --card-bg: #f8fafc;
+            --border-color: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #34d399 0%, #10b981 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .nav {
+            background: white;
+            padding: 1rem 2rem;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            margin-right: 2rem;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav a:hover {
+            color: var(--primary-color);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .benefit-card {
+            background: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: 20px;
+            border: 2px solid var(--border-color);
+            transition: all 0.3s;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-color);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .benefit-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .benefit-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+        }
+
+        .benefit-card p {
+            color: #64748b;
+            line-height: 1.8;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, #34d399 0%, #10b981 100%);
+            color: white;
+            padding: 4rem 2rem;
+            border-radius: 20px;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            padding: 1rem 3rem;
+            background: white;
+            color: var(--primary-color);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            margin-top: 1rem;
+            transition: all 0.3s;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: var(--card-bg);
+            border-top: 1px solid var(--border-color);
+            margin-top: 4rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <h1>⭐ Benefícios</h1>
+        <p>Por que escolher a Carangos S/A?</p>
+    </div>
+
+    <div class="nav">
+        <a href="index.html"><i class="fas fa-home"></i> Início</a>
+        <a href="sobre.html"><i class="fas fa-info-circle"></i> Sobre</a>
+        <a href="sistema.html"><i class="fas fa-network-wired"></i> Sistema</a>
+    </div>
+
+    <div class="container">
+        <div class="benefits-grid">
+            <div class="benefit-card">
+                <i class="fas fa-rocket benefit-icon"></i>
+                <h3>Aumento de Produtividade</h3>
+                <p>Automatize processos e reduza o tempo gasto em tarefas manuais em até 60%.</p>
+            </div>
+
+            <div class="benefit-card">
+                <i class="fas fa-chart-line benefit-icon"></i>
+                <h3>Decisões Baseadas em Dados</h3>
+                <p>Relatórios em tempo real e indicadores precisos para tomada de decisão estratégica.</p>
+            </div>
+
+            <div class="benefit-card">
+                <i class="fas fa-money-bill-wave benefit-icon"></i>
+                <h3>Redução de Custos</h3>
+                <p>Otimize recursos e reduza desperdícios com controle preciso de estoque e produção.</p>
+            </div>
+
+            <div class="benefit-card">
+                <i class="fas fa-shield-alt benefit-icon"></i>
+                <h3>Segurança de Dados</h3>
+                <p>Proteção avançada com criptografia e controle de acesso por níveis.</p>
+            </div>
+
+            <div class="benefit-card">
+                <i class="fas fa-sync benefit-icon"></i>
+                <h3>Integração Total</h3>
+                <p>Todos os módulos trabalham juntos, compartilhando informações em tempo real.</p>
+            </div>
+
+            <div class="benefit-card">
+                <i class="fas fa-mobile-alt benefit-icon"></i>
+                <h3>Acesso Multiplataforma</h3>
+                <p>Use via web, terminal CLI ou mobile - onde e quando precisar.</p>
+            </div>
+
+            <div class="benefit-card">
+                <i class="fas fa-headset benefit-icon"></i>
+                <h3>Suporte Especializado</h3>
+                <p>Equipe técnica dedicada para garantir o sucesso da sua operação.</p>
+            </div>
+
+            <div class="benefit-card">
+                <i class="fas fa-cog benefit-icon"></i>
+                <h3>Personalização</h3>
+                <p>Sistema adaptável às necessidades específicas do seu negócio.</p>
+            </div>
+
+            <div class="benefit-card">
+                <i class="fas fa-clock benefit-icon"></i>
+                <h3>Implementação Rápida</h3>
+                <p>Sistema pronto para uso em poucos dias, sem longos períodos de adaptação.</p>
+            </div>
+        </div>
+
+        <div class="cta-section">
+            <h2>Pronto para Transformar sua Gestão?</h2>
+            <p style="font-size: 1.2rem; margin-top: 1rem;">Experimente o sistema Carangos S/A e veja a diferença</p>
+            <a href="/" class="cta-btn">Acessar Dashboard</a>
+            <a href="/terminal" class="cta-btn"
+                style="background: rgba(255,255,255,0.2); color: white; border: 2px solid white; margin-left: 1rem;">Abrir
+                Terminal</a>
+        </div>
+    </div>
+
+    <footer>
+        <p><strong>© 2025 Carangos S/A</strong> - Sistema Integrado de Gestão</p>
+    </footer>
+</body>
+
+</html>

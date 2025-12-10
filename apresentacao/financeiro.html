@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo Financeiro - Carangos S/A</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #1e293b;
+            --primary-color: #10b981;
+            --card-bg: #f8fafc;
+            --border-color: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .nav {
+            background: white;
+            padding: 1rem 2rem;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            margin-right: 2rem;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav a:hover {
+            color: var(--primary-color);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 16px;
+            border: 2px solid var(--border-color);
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-color);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+        }
+
+        .feature-card p {
+            color: #64748b;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: var(--card-bg);
+            border-top: 1px solid var(--border-color);
+            margin-top: 4rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <h1>💰 Módulo Financeiro</h1>
+        <p>Relatórios, Indicadores e Análises Financeiras</p>
+    </div>
+
+    <div class="nav">
+        <a href="index.html"><i class="fas fa-home"></i> Início</a>
+        <a href="operacional.html"><i class="fas fa-cogs"></i> Operacional</a>
+        <a href="estoque.html"><i class="fas fa-boxes"></i> Estoque</a>
+        <a href="rh.html"><i class="fas fa-users"></i> RH</a>
+    </div>
+
+    <div class="container">
+        <h2 style="font-size: 2rem; margin-bottom: 1.5rem; color: var(--primary-color);">Funcionalidades</h2>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <i class="fas fa-file-invoice-dollar feature-icon"></i>
+                <h3>Gestão de Despesas Fixas</h3>
+                <p>Cadastre e controle despesas fixas mensais da fábrica</p>
+            </div>
+
+            <div class="feature-card">
+                <i class="fas fa-chart-line feature-icon"></i>
+                <h3>Relatórios Financeiros</h3>
+                <p>Visualize custos totais, custos unitários e preços de venda sugeridos</p>
+            </div>
+
+            <div class="feature-card">
+                <i class="fas fa-industry feature-icon"></i>
+                <h3>Relatório da Fábrica</h3>
+                <p>Análise completa incluindo água, luz e salários</p>
+            </div>
+
+            <div class="feature-card">
+                <i class="fas fa-percentage feature-icon"></i>
+                <h3>Indicadores e Impostos</h3>
+                <p>Cálculo automático de custo/carro, CSLL (9%) e lucro líquido</p>
+            </div>
+
+            <div class="feature-card">
+                <i class="fas fa-money-bill-wave feature-icon"></i>
+                <h3>Cálculo de Custos</h3>
+                <p>Integração com produção e estoque para custos precisos</p>
+            </div>
+
+            <div class="feature-card">
+                <i class="fas fa-chart-pie feature-icon"></i>
+                <h3>Análise de Lucratividade</h3>
+                <p>Acompanhe lucro bruto e líquido em tempo real</p>
+            </div>
+        </div>
+
+        <div
+            style="margin-top: 4rem; padding: 3rem; background: var(--card-bg); border-radius: 20px; border: 2px solid var(--border-color);">
+            <h2 style="color: var(--primary-color); margin-bottom: 2rem;">📊 Fluxograma do Módulo Financeiro</h2>
+            <div class="mermaid" style="background: white; padding: 2rem; border-radius: 12px;">
+                flowchart TD
+                A[🏁 Início] --> B[📝 Despesas]
+                B --> C[💡 Energia]
+                B --> D[💧 Água]
+                B --> E[🏢 Aluguel]
+                B --> F[👥 Salários]
+
+                C --> G[💾 Salvar]
+                D --> G
+                E --> G
+                F --> G
+
+                G --> H[🔄 Integrar]
+                H --> I[📦 Estoque]
+                H --> J[🏭 Produção]
+                H --> K[👥 RH]
+
+                I --> L[🧮 Calcular]
+                J --> L
+                K --> L
+
+                L --> M[💰 Custo Total]
+                M --> N[📊 Custo/Carro]
+                N --> O[🏷️ Preço +50%]
+                O --> P[💵 Lucro Bruto]
+                P --> Q[📉 CSLL 9%]
+                Q --> R[💚 Lucro Líquido]
+
+                R --> S[📋 Relatórios]
+                S --> T[✅ Fim]
+
+                style A fill:#10b981,stroke:#059669,stroke-width:3px,color:#fff
+                style T fill:#10b981,stroke:#059669,stroke-width:3px,color:#fff
+                style L fill:#3b82f6,stroke:#2563eb,stroke-width:2px,color:#fff
+                style Q fill:#ef4444,stroke:#dc2626,stroke-width:2px,color:#fff
+            </div>
+        </div>
+
+        <div
+            style="margin-top: 3rem; padding: 3rem; background: var(--card-bg); border-radius: 20px; border: 2px solid var(--border-color);">
+            <h2 style="color: var(--primary-color); margin-bottom: 1rem;">Como Funciona?</h2>
+            <ol style="font-size: 1.1rem; color: #475569; line-height: 2; padding-left: 1.5rem;">
+                <li><strong>Cadastre Despesas:</strong> Registre todas as despesas fixas mensais</li>
+                <li><strong>Integração Automática:</strong> Sistema integra dados de produção e estoque</li>
+                <li><strong>Cálculos Precisos:</strong> Custo unitário, preço de venda e impostos calculados
+                    automaticamente</li>
+                <li><strong>Análise Estratégica:</strong> Use relatórios para decisões financeiras inteligentes</li>
+            </ol>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+                curve: 'basis'
+            }
+        });
+    </script>
+
+    <footer>
+        <p><strong>© 2025 Carangos S/A</strong> - Sistema Integrado de Gestão</p>
+    </footer>
+</body>
+
+</html>

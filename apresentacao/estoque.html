@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo de Estoque - Carangos S/A</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #1e293b;
+            --primary-color: #ec4899;
+            --card-bg: #f8fafc;
+            --border-color: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .nav {
+            background: white;
+            padding: 1rem 2rem;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            margin-right: 2rem;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav a:hover {
+            color: var(--primary-color);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 16px;
+            border: 2px solid var(--border-color);
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-color);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+        }
+
+        .feature-card p {
+            color: #64748b;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: var(--card-bg);
+            border-top: 1px solid var(--border-color);
+            margin-top: 4rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <h1>📦 Módulo de Estoque</h1>
+        <p>Gestão de Insumos, Produtos e Custos</p>
+    </div>
+
+    <div class="nav">
+        <a href="index.html"><i class="fas fa-home"></i> Início</a>
+        <a href="operacional.html"><i class="fas fa-cogs"></i> Operacional</a>
+        <a href="financeiro.html"><i class="fas fa-chart-line"></i> Financeiro</a>
+        <a href="rh.html"><i class="fas fa-users"></i> RH</a>
+    </div>
+
+    <div class="container">
+        <h2 style="font-size: 2rem; margin-bottom: 1.5rem; color: var(--primary-color);">Funcionalidades</h2>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <i class="fas fa-plus-circle feature-icon"></i>
+                <h3>Cadastro de Produtos</h3>
+                <p>Registre produtos com código, nome, fornecedor, quantidade e valor de compra</p>
+            </div>
+
+            <div class="feature-card">
+                <i class="fas fa-search feature-icon"></i>
+                <h3>Busca Inteligente</h3>
+                <p>Pesquise produtos por nome ou código rapidamente</p>
+            </div>
+
+            <div class="feature-card">
+                <i class="fas fa-calculator feature-icon"></i>
+                <h3>Cálculo de Custos</h3>
+                <p>Visualize custo total atual, mensal e anual projetado automaticamente</p>
+            </div>
+
+            <div class="feature-card">
+                <i class="fas fa-warehouse feature-icon"></i>
+                <h3>Controle de Estoque</h3>
+                <p>Monitore quantidades disponíveis de cada produto em tempo real</p>
+            </div>
+
+            <div class="feature-card">
+                <i class="fas fa-truck feature-icon"></i>
+                <h3>Gestão de Fornecedores</h3>
+                <p>Mantenha registro completo de fornecedores e datas de fabricação</p>
+            </div>
+
+            <div class="feature-card">
+                <i class="fas fa-chart-pie feature-icon"></i>
+                <h3>Relatórios de Custos</h3>
+                <p>Análise detalhada de custos e projeções financeiras</p>
+            </div>
+        </div>
+
+        <div
+            style="margin-top: 4rem; padding: 3rem; background: var(--card-bg); border-radius: 20px; border: 2px solid var(--border-color);">
+            <h2 style="color: var(--primary-color); margin-bottom: 2rem;">📊 Fluxograma do Módulo de Estoque</h2>
+            <div class="mermaid" style="background: white; padding: 2rem; border-radius: 12px;">
+                flowchart TD
+                A[🏁 Início] --> B{Ação?}
+                B -->|Cadastrar| C[📝 Novo Produto]
+                B -->|Buscar| D[🔍 Pesquisar]
+                B -->|Relatório| E[📊 Custos]
+
+                C --> F[Código]
+                F --> G[Nome]
+                G --> H[Data Fab]
+                H --> I[Fornecedor]
+                I --> J[Quantidade]
+                J --> K[Valor]
+                K --> L[💾 Salvar]
+
+                D --> M[Digite Termo]
+                M --> N[Buscar]
+                N --> O[📋 Resultados]
+
+                E --> P[Calcular]
+                P --> Q[💰 Total]
+                P --> R[📅 Mensal]
+                P --> S[📈 Anual]
+
+                L --> T[✅ OK]
+                O --> T
+                Q --> T
+                R --> T
+                S --> T
+                T --> U[🏁 Fim]
+
+                style A fill:#ec4899,stroke:#db2777,stroke-width:3px,color:#fff
+                style U fill:#10b981,stroke:#059669,stroke-width:3px,color:#fff
+                style L fill:#3b82f6,stroke:#2563eb,stroke-width:2px,color:#fff
+            </div>
+        </div>
+
+        <div
+            style="margin-top: 3rem; padding: 3rem; background: var(--card-bg); border-radius: 20px; border: 2px solid var(--border-color);">
+            <h2 style="color: var(--primary-color); margin-bottom: 1rem;">Como Funciona?</h2>
+            <ol style="font-size: 1.1rem; color: #475569; line-height: 2; padding-left: 1.5rem;">
+                <li><strong>Cadastre Produtos:</strong> Adicione insumos e produtos ao sistema</li>
+                <li><strong>Acompanhe Estoque:</strong> Visualize quantidades e valores em tempo real</li>
+                <li><strong>Pesquise Rapidamente:</strong> Encontre produtos por nome ou código</li>
+                <li><strong>Analise Custos:</strong> Veja projeções e tome decisões de compra</li>
+            </ol>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+                curve: 'basis'
+            }
+        });
+    </script>
+
+    <footer>
+        <p><strong>© 2025 Carangos S/A</strong> - Sistema Integrado de Gestão</p>
+    </footer>
+</body>
+
+</html>

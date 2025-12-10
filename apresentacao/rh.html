@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo de RH - Carangos S/A</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #1e293b;
+            --primary-color: #8b5cf6;
+            --card-bg: #f8fafc;
+            --border-color: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .nav {
+            background: white;
+            padding: 1rem 2rem;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            margin-right: 2rem;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav a:hover {
+            color: var(--primary-color);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 16px;
+            border: 2px solid var(--border-color);
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-color);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+        }
+
+        .feature-card p {
+            color: #64748b;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: var(--card-bg);
+            border-top: 1px solid var(--border-color);
+            margin-top: 4rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <h1>👥 Módulo de RH</h1>
+        <p>Gestão de Pessoas e Folha de Pagamento</p>
+    </div>
+
+    <div class="nav">
+        <a href="index.html"><i class="fas fa-home"></i> Início</a>
+        <a href="operacional.html"><i class="fas fa-cogs"></i> Operacional</a>
+        <a href="estoque.html"><i class="fas fa-boxes"></i> Estoque</a>
+        <a href="financeiro.html"><i class="fas fa-chart-line"></i> Financeiro</a>
+    </div>
+
+    <div class="container">
+        <h2 style="font-size: 2rem; margin-bottom: 1.5rem; color: var(--primary-color);">Funcionalidades</h2>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <i class="fas fa-user-plus feature-icon"></i>
+                <h3>Cadastro de Funcionários</h3>
+                <p>Registre dados completos: CPF, RG, CTPS, endereço, telefone e dependentes</p>
+            </div>
+
+            <div class="feature-card">
+                <i class="fas fa-list feature-icon"></i>
+                <h3>Listagem Completa</h3>
+                <p>Visualize todos os funcionários com informações detalhadas</p>
+            </div>
+
+            <div class="feature-card">
+                <i class="fas fa-edit feature-icon"></i>
+                <h3>Edição de Dados</h3>
+                <p>Atualize informações de funcionários facilmente</p>
+            </div>
+
+            <div class="feature-card">
+                <i class="fas fa-trash-alt feature-icon"></i>
+                <h3>Gestão de Desligamentos</h3>
+                <p>Remova funcionários do sistema quando necessário</p>
+            </div>
+
+            <div class="feature-card">
+                <i class="fas fa-money-check-alt feature-icon"></i>
+                <h3>Folha de Pagamento</h3>
+                <p>Calcule salários com horas normais, extras e descontos automáticos</p>
+            </div>
+
+            <div class="feature-card">
+                <i class="fas fa-sitemap feature-icon"></i>
+                <h3>Organização por Setores</h3>
+                <p>Gerencie funcionários por setor e cargo automaticamente</p>
+            </div>
+        </div>
+
+        <div
+            style="margin-top: 4rem; padding: 3rem; background: var(--card-bg); border-radius: 20px; border: 2px solid var(--border-color);">
+            <h2 style="color: var(--primary-color); margin-bottom: 2rem;">📊 Fluxograma do Módulo de RH</h2>
+            <div class="mermaid" style="background: white; padding: 2rem; border-radius: 12px;">
+                flowchart TD
+                A[🏁 Início] --> B{Ação?}
+                B -->|Cadastrar| C[👤 Novo Func]
+                B -->|Listar| D[📋 Ver Todos]
+                B -->|Editar| E[✏️ Atualizar]
+                B -->|Deletar| F[🗑️ Remover]
+                B -->|Folha| G[💵 Pagamento]
+
+                C --> H[Nome]
+                H --> I[Endereço]
+                I --> J[CPF/RG]
+                J --> K[CTPS]
+                K --> L[Telefone]
+                L --> M[Filhos]
+                M --> N[Setor]
+                N --> O[Cargo]
+                O --> P[Matrícula]
+                P --> Q[💾 Salvar]
+
+                D --> R[Listar]
+                R --> S[✅ Exibir]
+
+                E --> T[Selecionar]
+                T --> U[Editar]
+                U --> V[💾 Atualizar]
+
+                F --> W[Selecionar]
+                W --> X{Confirma?}
+                X -->|Sim| Y[🗑️ Remover]
+                X -->|Não| Z[❌ Cancelar]
+
+                G --> AA[Setor]
+                AA --> AB[Funcionário]
+                AB --> AC[Horas]
+                AC --> AD[Extras]
+                AD --> AE[Calcular]
+                AE --> AF[Descontos]
+                AF --> AG[💰 Líquido]
+
+                Q --> AH[✅ OK]
+                S --> AH
+                V --> AH
+                Y --> AH
+                Z --> AH
+                AG --> AH
+                AH --> AI[🏁 Fim]
+
+                style A fill:#8b5cf6,stroke:#7c3aed,stroke-width:3px,color:#fff
+                style AI fill:#10b981,stroke:#059669,stroke-width:3px,color:#fff
+                style P fill:#3b82f6,stroke:#2563eb,stroke-width:2px,color:#fff
+                style AE fill:#f59e0b,stroke:#d97706,stroke-width:2px,color:#fff
+            </div>
+        </div>
+
+        <div
+            style="margin-top: 3rem; padding: 3rem; background: var(--card-bg); border-radius: 20px; border: 2px solid var(--border-color);">
+            <h2 style="color: var(--primary-color); margin-bottom: 1rem;">Como Funciona?</h2>
+            <ol style="font-size: 1.1rem; color: #475569; line-height: 2; padding-left: 1.5rem;">
+                <li><strong>Cadastre Funcionários:</strong> Adicione colaboradores com dados completos</li>
+                <li><strong>Organize por Setores:</strong> Sistema gera matrículas automaticamente por setor</li>
+                <li><strong>Gerencie Informações:</strong> Edite ou remova dados conforme necessário</li>
+                <li><strong>Calcule Folha:</strong> Gere folha de pagamento com todos os cálculos automáticos</li>
+            </ol>
+        </div>
+
+        <div
+            style="margin-top: 3rem; padding: 2rem; background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%); border-radius: 16px; color: white;">
+            <h3 style="margin-bottom: 1rem;">💡 Setores Disponíveis</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                <div>✓ Operacional</div>
+                <div>✓ Estoque</div>
+                <div>✓ Financeiro</div>
+                <div>✓ RH</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+                curve: 'basis'
+            }
+        });
+    </script>
+
+    <footer>
+        <p><strong>© 2025 Carangos S/A</strong> - Sistema Integrado de Gestão</p>
+    </footer>
+</body>
+
+</html>

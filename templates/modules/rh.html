@@ -85,6 +85,7 @@
                         <th style="padding: 0.5rem;">IRPF</th>
                         <th style="padding: 0.5rem;">Paga IR?</th>
                         <th style="padding: 0.5rem;">Líquido</th>
+                        <th style="padding: 0.5rem;">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -103,10 +104,27 @@
                         </td>
                         <td style="padding: 0.5rem; color: var(--success-color); font-weight: bold;">R$ {{
                             "%.2f"|format(f['liquido']) }}</td>
+                        <td style="padding: 0.5rem; display: flex; gap: 0.5rem;">
+                            <!-- Find the original employee object to get CPF -->
+                            {% set func = funcionarios | selectattr("nome", "equalto", f['nome']) | first %}
+                            {% if func %}
+                            <button class="btn btn-sm btn-secondary"
+                                onclick="openEditModal('{{ func.cpf }}', '{{ func.nome }}', '{{ func.endereco }}', '{{ func.telefone }}')">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <form action="{{ url_for('rh_delete', cpf=func.cpf) }}" method="POST"
+                                style="display:inline;"
+                                onsubmit="return confirm('Tem certeza que deseja excluir este funcionário?');">
+                                <button type="submit" class="btn btn-sm btn-danger">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                            {% endif %}
+                        </td>
                     </tr>
                     {% else %}
                     <tr>
-                        <td colspan="6" style="padding: 1rem; text-align: center; color: var(--text-secondary);">Nenhum
+                        <td colspan="7" style="padding: 1rem; text-align: center; color: var(--text-secondary);">Nenhum
                             funcionário cadastrado.</td>
                     </tr>
                     {% endfor %}
@@ -115,4 +133,56 @@
         </div>
     </div>
 </div>
+
+<!-- Edit Modal -->
+<div id="editModal" class="modal"
+    style="display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.5); backdrop-filter: blur(5px);">
+    <div class="modal-content glass-panel"
+        style="margin: 10% auto; padding: 2rem; border: 1px solid var(--glass-border); width: 50%; max-width: 500px; position: relative;">
+        <span class="close" onclick="closeEditModal()"
+            style="position: absolute; top: 1rem; right: 1rem; font-size: 1.5rem; cursor: pointer; color: var(--text-secondary);">&times;</span>
+        <h3 style="margin-bottom: 1.5rem;">Editar Funcionário</h3>
+        <form id="editForm" method="POST">
+            <div class="form-group">
+                <label>Nome Completo</label>
+                <input type="text" id="edit_nome" name="nome" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label>Endereço</label>
+                <input type="text" id="edit_endereco" name="endereco" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Telefone</label>
+                <input type="text" id="edit_telefone" name="telefone" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Salvar
+                Alterações</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+    function openEditModal(cpf, nome, endereco, telefone) {
+        document.getElementById('editModal').style.display = "block";
+        document.getElementById('editForm').action = "/rh/edit/" + cpf;
+        document.getElementById('edit_nome').value = nome;
+        document.getElementById('edit_endereco').value = endereco;
+        document.getElementById('edit_telefone').value = telefone;
+    }
+
+    function closeEditModal() {
+        document.getElementById('editModal').style.display = "none";
+    }
+
+    // Close modal if clicked outside
+    window.onclick = function (event) {
+        var modal = document.getElementById('editModal');
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
 {% endblock %}

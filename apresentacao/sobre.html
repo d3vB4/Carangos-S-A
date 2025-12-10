@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobre - Carangos S/A</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #1e293b;
+            --primary-color: #3b82f6;
+            --card-bg: #f8fafc;
+            --border-color: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .nav {
+            background: white;
+            padding: 1rem 2rem;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            margin-right: 2rem;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav a:hover {
+            color: var(--primary-color);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .section {
+            margin-bottom: 4rem;
+        }
+
+        .section h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        .section p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #475569;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 16px;
+            border: 2px solid var(--border-color);
+            transition: all 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .card p {
+            color: #64748b;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: var(--card-bg);
+            border-top: 1px solid var(--border-color);
+            margin-top: 4rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <h1>🏢 Sobre a Carangos S/A</h1>
+        <p>Conheça nossa história, visão e valores</p>
+    </div>
+
+    <div class="nav">
+        <a href="index.html"><i class="fas fa-home"></i> Início</a>
+        <a href="sistema.html"><i class="fas fa-network-wired"></i> Sistema</a>
+        <a href="beneficios.html"><i class="fas fa-star"></i> Benefícios</a>
+    </div>
+
+    <div class="container">
+        <div class="section">
+            <h2>Nossa Missão</h2>
+            <p>
+                Fornecer soluções tecnológicas inovadoras para a indústria automotiva,
+                otimizando processos de produção, gestão de estoque, controle financeiro
+                e recursos humanos através de um sistema integrado e eficiente.
+            </p>
+        </div>
+
+        <div class="section">
+            <h2>Nossa Visão</h2>
+            <p>
+                Ser referência em sistemas de gestão para montadoras, reconhecidos pela
+                excelência em tecnologia, inovação e compromisso com a eficiência operacional
+                de nossos clientes.
+            </p>
+        </div>
+
+        <div class="section">
+            <h2>Nossos Valores</h2>
+            <div class="cards-grid">
+                <div class="card">
+                    <h3>🎯 Excelência</h3>
+                    <p>Comprometimento com a qualidade em cada detalhe do nosso sistema.</p>
+                </div>
+                <div class="card">
+                    <h3>💡 Inovação</h3>
+                    <p>Busca constante por soluções tecnológicas de ponta.</p>
+                </div>
+                <div class="card">
+                    <h3>🤝 Parceria</h3>
+                    <p>Relacionamento próximo e duradouro com nossos clientes.</p>
+                </div>
+                <div class="card">
+                    <h3>📊 Eficiência</h3>
+                    <p>Otimização de processos para máxima produtividade.</p>
+                </div>
+                <div class="card">
+                    <h3>🔒 Segurança</h3>
+                    <p>Proteção de dados e informações críticas do negócio.</p>
+                </div>
+                <div class="card">
+                    <h3>🌱 Sustentabilidade</h3>
+                    <p>Compromisso com práticas empresariais responsáveis.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Por Que Escolher a Carangos S/A?</h2>
+            <p>
+                Com anos de experiência no setor automotivo, desenvolvemos um sistema completo
+                que integra todos os aspectos críticos da gestão de uma montadora. Nossa solução
+                é projetada para escalar com seu negócio, oferecendo:
+            </p>
+            <ul style="margin-top: 1rem; font-size: 1.1rem; color: #475569; line-height: 2;">
+                <li>✅ Interface intuitiva e fácil de usar</li>
+                <li>✅ Relatórios detalhados e em tempo real</li>
+                <li>✅ Integração completa entre módulos</li>
+                <li>✅ Suporte técnico especializado</li>
+                <li>✅ Atualizações constantes e melhorias</li>
+            </ul>
+        </div>
+    </div>
+
+    <footer>
+        <p><strong>© 2025 Carangos S/A</strong> - Sistema Integrado de Gestão</p>
+    </footer>
+</body>
+
+</html>
